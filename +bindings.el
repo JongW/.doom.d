@@ -11,7 +11,6 @@
 
 ;;
 ;;; Global keybindings
-
 (map! (:map override
         ;; A little sandbox to run code in
         "M-;" #'eval-expression
