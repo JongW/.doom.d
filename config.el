@@ -6,7 +6,7 @@
 (setq company-idle-delay 0.2
       company-minimum-prefix-length 1)
 
-(setq doom-font (font-spec :family "Iosevka Term" :size 18))
+(setq doom-font (font-spec :family "Iosevka Term" :size 18 ))
 
 (setq display-line-numbers 'relative)
 
@@ -18,4 +18,7 @@
 (global-set-key (kbd "H-k") (kbd"<up>"))
 (global-set-key (kbd "H-l") (kbd"<right>"))
 
-(evil-define-key evil-normal-state-map (kbd "o") 'evil-insert-line)
+(evil-define-key evil-normal-state-map "RET" 'evil-insert-line-below)
+
+;; (with-eval-after-load 'evil-maps
+;;   (evil-define-key evil-motion-state-map (kbd "RET") 'evil-insert-line))
