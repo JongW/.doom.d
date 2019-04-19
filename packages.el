@@ -3,5 +3,5 @@
 
 ;;; Examples:
 ;; (package! some-package)
-;; (package! another-package :recipe (:fetcher github :repo "username/repo"))
+;; (package! simpleclip :recipe (:fetcher github :repo "rolandwalker/simpleclip"))
 ;; (package! builtin-package :disable t)

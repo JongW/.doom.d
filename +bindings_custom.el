@@ -1,6 +1,5 @@
 ;;; ~/.doom.d/+bindings_custom.el -*- lexical-binding: t; -*-
- (map!
-
+(map!
   ;; Ensure there are no conflicts
   :nmvo doom-leader-key nil
   :nmvo doom-localleader-key nil
@@ -13,11 +12,7 @@
   ;; A little sandbox to run code in
   :gnvime "M-;" #'eval-expression
   :gnvime "M-:" #'doom/open-scratch-buffer
-  ;; Window Movements
-  "C-h"    #'evil-window-left
-  "C-j"    #'evil-window-down
-  "C-k"    #'evil-window-up
-  "C-l"    #'evil-window-right
+
   "A-q"    #'delete-window
   "C-`"      #'+popup/toggle
   "<C-tab>"  #'+popup/other
@@ -36,11 +31,6 @@
   :nv  "gc"   #'evil-commentary
 
   (:map evil-window-map ; prefix "C-w"
-    ;; Navigation
-    "C-h"     #'evil-window-left
-    "C-j"     #'evil-window-down
-    "C-k"     #'evil-window-up
-    "C-l"     #'evil-window-right
     "C-w"     #'ace-window
     ;; Swapping windows
     "H"       #'+evil/window-move-left
@@ -62,16 +52,20 @@
   (:leader
     :desc "M-x"                    :nv ":"   #'execute-extended-command
     :desc "Neotree toggle"         :n  "e"   #'neotree-toggle
-
     :desc "Horizonal Split"        :n  "s"   #'split-window-below
     :desc "Vertical Split"         :n  "v"   #'split-window-right
-
+    :desc "Restart & restore Emacs"  :n "r" #'doom/restart-and-restore
     :desc "Next Error"             :n  "]"   #'flycheck-next-error
     :desc "Previous Error"         :n  "["   #'flycheck-previous-error
 
     :desc "Find file content"      :n  "f"   #'counsel-projectile-ag
     :desc "Find project"           :n  "p"   #'find-file
     :desc "Find project"           :n  "."   #'projectile-switch-project
+
+    :n  "h"   #'evil-window-left
+    :n  "j"   #'evil-window-down
+    :n  "k"   #'evil-window-up
+    :n  "l"   #'evil-window-right
 
     ;; :desc "Eval"                   :n  "e"   #'+eval/buffer
     ;; :v  "e"   #'+eval/region
@@ -80,33 +74,33 @@
     :desc "Save file"            :n  "w" #'save-buffer
 
     :desc "Close window"      :n  "q"   #'delete-window
-    :desc "Ivy open buffers"       :n  "b"   #'ivy-switch-buffer
+    :desc "Ivy open buffers"  :n  "b"   #'ivy-switch-buffer
 
-    :desc "Toggle between file and tests"  :n "t" #'projectile-toggle-between-implementation-and-test
+    ;; :desc "Toggle between file and tests"  :n "t" #'projectile-toggle-between-implementation-and-test
 
-    (:prefix ("z" . "extra commands")
-      :n "h" help-map
-      :desc "Apropos"               :n "a" #'apropos
-      :desc "Reload theme"          :n "R" #'doom/reload-theme
-      :desc "Find library"          :n "l" #'find-library
-      :desc "Toggle Emacs log"      :n "m" #'doom/popup-toggle-messages
-      :desc "Command log"           :n "L" #'global-command-log-mode
-      :desc "Describe function"     :n "f" #'describe-function
-      :desc "Describe key"          :n "k" #'describe-key
-      :desc "Describe char"         :n "c" #'describe-char
-      :desc "Describe mode"         :n "M" #'describe-mode
-      :desc "Show messages"         :n "m" #'view-echo-area-messages
-      :desc "Describe variable"     :n "v" #'describe-variable
-      :desc "Describe face"         :n "F" #'describe-face
-      :desc "Describe DOOM setting" :n "s" #'doom/describe-setting
-      :desc "Describe DOOM module"  :n "d" #'doom/describe-module
-      :desc "Find definition"       :n "." #'+jump/definition
-      :desc "Find references"       :n "/" #'+jump/references
-      :desc "Find documentation"    :n "h" #'+jump/documentation
-      :desc "What face"             :n "'" #'doom/what-face
-      :desc "What minor modes"      :n ";" #'doom/what-minor-mode
-      :desc "Info"                  :n "i" #'info
-      :desc "Toggle profiler"       :n "p" #'doom/toggle-profiler)
+    ;; (:prefix ("z" . "extra commands")
+    ;;   :n "h" help-map
+    ;;   :desc "Apropos"               :n "a" #'apropos
+    ;;   :desc "Reload theme"          :n "R" #'doom/reload-theme
+    ;;   :desc "Find library"          :n "l" #'find-library
+    ;;   :desc "Toggle Emacs log"      :n "m" #'doom/popup-toggle-messages
+    ;;   :desc "Command log"           :n "L" #'global-command-log-mode
+    ;;   :desc "Describe function"     :n "f" #'describe-function
+    ;;   :desc "Describe key"          :n "k" #'describe-key
+    ;;   :desc "Describe char"         :n "c" #'describe-char
+    ;;   :desc "Describe mode"         :n "M" #'describe-mode
+    ;;   :desc "Show messages"         :n "m" #'view-echo-area-messages
+    ;;   :desc "Describe variable"     :n "v" #'describe-variable
+    ;;   :desc "Describe face"         :n "F" #'describe-face
+    ;;   :desc "Describe DOOM setting" :n "s" #'doom/describe-setting
+    ;;   :desc "Describe DOOM module"  :n "d" #'doom/describe-module
+    ;;   :desc "Find definition"       :n "." #'+jump/definition
+    ;;   :desc "Find references"       :n "/" #'+jump/references
+    ;;   :desc "Find documentation"    :n "h" #'+jump/documentation
+    ;;   :desc "What face"             :n "'" #'doom/what-face
+    ;;   :desc "What minor modes"      :n ";" #'doom/what-minor-mode
+    ;;   :desc "Info"                  :n "i" #'info
+    ;;   :desc "Toggle profiler"       :n "p" #'doom/toggle-profiler)
 
 
     (:prefix("g" . "git")
@@ -153,7 +147,7 @@
       :desc "Load session"             :n "L"   #'+workspace/load-session
       :desc "Next workspace"           :n "]"   #'+workspace/switch-right
       :desc "Previous workspace"       :n "["   #'+workspace/switch-left
-      ;; :desc "Rename workspace"         :n "r"   #'+workspace:rename
+      :desc "Rename workspace"         :n "r"   #'+workspace:rename
       :desc "Switch to 1st workspace"  :n "1"   (λ! (+workspace/switch-to 0))
       :desc "Switch to 2nd workspace"  :n "2"   (λ! (+workspace/switch-to 1))
       :desc "Switch to 3rd workspace"  :n "3"   (λ! (+workspace/switch-to 2))
@@ -161,11 +155,8 @@
       :desc "Switch to 5th workspace"  :n "5"   (λ! (+workspace/switch-to 4))
       :desc "Switch to 6th workspace"  :n "6"   (λ! (+workspace/switch-to 5))
       :desc "Switch to 7th workspace"  :n "7"   (λ! (+workspace/switch-to 6))
-      :desc "Switch to 8th workspace"  :n "9"   (λ! (+workspace/switch-to 7))
+      :desc "Switch to 8th workspace"  :n "8"   (λ! (+workspace/switch-to 7))
       :desc "Switch to 9th workspace"  :n "9"   (λ! (+workspace/switch-to 8)))
-
-
-      :desc "Restart & restore Emacs"  :n "r" #'doom/restart-and-restore
     )
 
   (:after magit
@@ -195,16 +186,11 @@
     :n "RET"       #'neotree-enter
     :n [backspace] #'evil-window-prev
     :n "c"         #'neotree-create-node
+    :n "d"         #'neotree-delete-node
     :n "j"         #'neotree-next-line
     :n "k"         #'neotree-previous-line
-    :n "n"         #'neotree-next-line
-    :n "p"         #'neotree-previous-line
     :n "h"         #'+neotree/collapse-or-up
     :n "l"         #'+neotree/expand-or-open
-    :n "J"         #'neotree-select-next-sibling-node
-    :n "K"         #'neotree-select-previous-sibling-node
-    :n "H"         #'neotree-select-up-node
-    :n "L"         #'neotree-select-down-node
     :n "G"         #'evil-goto-line
     :n "gg"        #'evil-goto-first-line
     :n "v"         #'neotree-enter-vertical-split
@@ -215,10 +201,9 @@
   ;; company
   (:after company
     :map company-active-map
-    "C-j"         #'company-select-next
-    "C-n"         #'company-select-next
-    "C-k"         #'company-select-previous
-    "C-p"         #'company-select-previous
+    [tab]         #'company-select-next
+    "TAB"         #'company-select-next
+    "H-k"         #'company-select-previous
     "C-d"         #'company-show-doc-buffer
     )
 
@@ -236,25 +221,6 @@
     (:leader
       :desc "Toggle between file and tests"   :n "t" (λ! (alchemist-project-toggle-file-and-tests))
       :desc "Jump to definition at point"     :n "l" #'alchemist-goto-definition-at-point))
-
-  ;; Haskell Mode
-  (:after haskell-mode
-   :map haskell-mode-map
-   :localleader
-   :desc "Show IMenu Nodes"             "m" #'+lsp-ui-imenu
-   :desc "Apply LSP Action"             "a" #'lsp-ui-sideline-apply-code-actions)
-
-  ;; Rust Mode
-  (:after rust-mode
-    (:leader
-      :desc "Lookup documentation at point"   :n "d" #'racer-describe
-      :desc "Jump to definition at point"     :n "l" #'racer-find-definition))
-
-
-  ;; Racket Mode
-  (:after racket-mode
-    (:leader
-      :desc "Describe symbol at point"     :n "d" #'racket-describe))
 
   (:after elisp-mode
     (:leader
@@ -291,13 +257,13 @@
       (:map cider-browse-ns-mode-map
         :n "RET"       #'cider-browse-ns-operate-at-point)))
 
-  ;; org-mode
-  (:after org-mode
-    (:map org-mode-map
-      :localleader
-      :n  "t"  #'org-todo
-      :n  "d"  #'org-deadline
-      :n  "s"  #'org-schedule))
+  ;; ;; org-mode
+  ;; (:after org-mode
+  ;;   (:map org-mode-map
+  ;;     :localleader
+  ;;     :n  "t"  #'org-todo
+  ;;     :n  "d"  #'org-deadline
+  ;;     :n  "s"  #'org-schedule))
 
   (:after julia-mode
     (:map julia-mode-map
