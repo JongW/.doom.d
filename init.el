@@ -29,7 +29,7 @@
         modeline          ; snazzy, Atom-inspired modeline, plus API
         nav-flash         ; blink the current line after jumping
         neotree           ; a project drawer, like NERDTree for vim
-        treemacs          ; a project drawer, like neotree but cooler
+        ;; treemacs          ; a project drawer, like neotree but cooler
         (popup            ; tame sudden yet inevitable temporary windows
          +all             ; catch all popups that start with an asterix
          +defaults)       ; default popup rules
@@ -68,7 +68,7 @@
         flycheck          ; tasing you for every semicolon you forget
         ;;flyspell          ; tasing you for misspelling mispelling
         ;;gist              ; interacting with github gists
-        ;;lsp
+        ;; lsp
         ;;macos             ; MacOS-specific commands
         magit             ; a git porcelain for Emacs
         ;;make              ; run make tasks from Emacs
@@ -119,7 +119,7 @@
          +present         ; Emacs for presentations
          +protocol)       ; Support for org-protocol:// links
         ;;perl              ; write code no one else can comprehend
-        php               ; perl's insecure younger brother
+        ;; php               ; perl's insecure younger brother
         ;;plantuml          ; diagrams for confusing people more
         ;;purescript        ; javascript, but functional
         python            ; beautiful is better than ugly
