@@ -3,6 +3,6 @@
 
 ;;; Examples:
 ;; (package! some-package)
-;; (package! simpleclip :recipe (:fetcher github :repo "rolandwalker/simpleclip"))
 (package! general :recipe (:fetcher github :repo "noctuid/general.el"))
+(package! emacs-doom-themes :recipe (:fetcher github :repo "hlissner/emacs-doom-themes"))
 ;;

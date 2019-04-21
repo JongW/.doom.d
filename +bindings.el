@@ -1,4 +1,21 @@
 ;;; ~/.doom.d/+bindings_custom2.el -*- lexical-binding: t; -*-
+
+(defun vi-open-line-below ()
+  "Insert a newline below the current line and put point at beginning."
+(interactive)
+(unless (eolp)
+(end-of-line))
+(newline-and-indent))
+
+(defun vi-open-line-above ()
+"Insert a newline above the current line and put point at beginning."
+(interactive)
+(unless (bolp)
+(beginning-of-line))
+(newline)
+(forward-line -1)
+(indent-according-to-mode))
+
 (map!
  :nmvo doom-leader-key nil
  :nmvo doom-localleader-key nil
@@ -13,31 +30,44 @@
  :gnvime (kbd "H-k") (kbd "<up>")
  :gnvime (kbd "H-l") (kbd "<right>")
 
- :nvimo "0" #'evil-first-non-blank
-
  ;; Text-scaling
  "M-+"    (λ! (text-scale-set 0))
  "M-="    #'text-scale-increase
  "M--"    #'text-scale-decrease
 
- :n "-" #'ranger
+;; Vim key bindings
+ :n "o" 'vi-open-line-below
+ :n "O" 'vi-open-line-above
+ :v  "<"     #'+evil/visual-dedent  ; vnoremap < <gv
+ :v  ">"     #'+evil/visual-indent  ; vnoremap > >gv
+ :nvimo "0" #'evil-first-non-blank
+ :nvimo "H" #'evil-first-non-blank
+ :nvimo "L" #'evil-end-of-line
  :n "<up>" #'evil-scroll-line-up
  :n "<down>" #'evil-scroll-line-down
 
- :v  "<"     #'+evil/visual-dedent  ; vnoremap < <gv
- :v  ">"     #'+evil/visual-indent  ; vnoremap > >gv
+ :n "-" #'ranger
 
  (:leader
+  ;; Window management
    :n  "h"   #'evil-window-left
    :n  "j"   #'evil-window-down
    :n  "k"   #'evil-window-up
    :n  "l"   #'evil-window-right
+   :desc "Horizonal Split"        :n  "s"   #'split-window-below
+   :desc "Vertical Split"         :n  "v"   #'evil-window-vsplit
+
+  ;; Buffer management
    :n "[" #'previous-buffer
    :n "]" #'next-buffer
-
+   :n "d" #'kill-this-buffer
+   :n "D" #'doom/kill-other-buffers
+  
    :n "q" #'delete-window
    :n "w" #'save-buffer
-   :n "p" #'find-file
+
+   :n "P" #'find-file
+   :n "p" #'project-find-file
    :n "e" #'neotree-toggle
 
    :n "r" #'evil-show-registers
@@ -46,15 +76,12 @@
    :n "a" #'org-agenda
    :n "c" #'evil-commentary
 
-   :desc "Horizonal Split"        :n  "s"   #'split-window-below
-   :desc "Vertical Split"         :n  "v"   #'evil-window-vsplit
-
    :gnvime "x" #'execute-extended-command
 
    :desc "Terminal"            :n  "t" #'+term/open-popup
    :desc "Terminal in project" :n  "T" #'+term/open-popup-in-project
 
-   :desc "Ivy open buffers"  :n  "B"   #'ivy-switch-buffer
+   :desc "Ivy open ALL buffers"  :n  "B"   #'ivy-switch-buffer
    :desc "Silver searcher"      :n  "f"   #'counsel-projectile-ag
    :desc "Find project"           :n  "."   #'projectile-switch-project
 
@@ -72,18 +99,17 @@
      :desc "Display tab bar"          :n "TAB" #'+workspace/display
      :desc "New workspace"            :n "n"   #'+workspace/new
      :desc "Load workspace from file" :n "l"   #'+workspace/load
-     :desc "Load last session"        :n "L"   (λ! (+workspace/load-session))
-     :desc "Kill other buffers" :n "o" #'doom/kill-other-buffers
-     :desc "Save workspace to file"   :n "s"   #'+workspace/save
-     :desc "Autosave current session" :n "S"   #'+workspace/save-session
      :desc "Switch workspace"         :n "."   #'+workspace/switch-to
+
      :desc "Kill all buffers"         :n "x"   #'doom/kill-all-buffers
      :desc "Delete session"           :n "X"   #'+workspace/kill-session
+
      :desc "Delete this workspace"    :n "d"   #'+workspace/delete
-     :desc "Load session"             :n "L"   #'+workspace/load-session
+
      :desc "Next workspace"           :n "]"   #'+workspace/switch-right
      :desc "Previous workspace"       :n "["   #'+workspace/switch-left
      :desc "Rename workspace"         :n "r"   #'+workspace:rename
+
      :desc "Switch to 1st workspace"  :n "1"   (λ! (+workspace/switch-to 0))
      :desc "Switch to 2nd workspace"  :n "2"   (λ! (+workspace/switch-to 1))
      :desc "Switch to 3rd workspace"  :n "3"   (λ! (+workspace/switch-to 2))
@@ -143,6 +169,8 @@
  (:after company
    :map company-active-map
    [tab]         #'company-complete-common-or-cycle
+   "H-j"         #'company-select-next
+   "H-k"         #'company-select-previous
    "C-l"         #'company-next-page
    "C-h"         #'company-previous-page
    "C-d"         #'company-show-doc-buffer
@@ -155,8 +183,28 @@
    :n "M-k" #'org-metaup
    :n "M-j" #'org-metadown
 
+;; Tidy up whick-key and replace commands
+   "C-c C-d" nil
+   "C-c d" #'org-deadline
+   "C-c C-t" nil
+   "C-c t" #'org-todo
+   "C-c C-n" nil
+
+   ;; Just tidy up commands
+   "C-c C-^" nil ;; org-up-element
+   "C-c C-_" nil ;; org-down element
+   "C-c C->" nil ;; org-outline-promote
+   "C-c C-<" nil ;; org-outline-demote
+  
+   :n "\{" #'org-next-visible-heading
+   :n "\}" #'org-previous-visible-heading
+
    :n "M-<left>" #'org-promote-subtree
    :n "M-<right>" #'org-demote-subtree
+
+   :map evil-org-mode-map
+   :n "o" #'vi-open-line-below
+   :n "O" #'vi-open-line-above
    )
  )
 

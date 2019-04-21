@@ -16,22 +16,6 @@
 
 (doom--define-leader-key :states 'normal "b" 'my-also-ignore-star-buffers)
 
-(defun vi-open-line-below ()
-"Insert a newline below the current line and put point at beginning."
-(interactive)
-(unless (eolp)
-(end-of-line))
-(newline-and-indent))
-
-(defun vi-open-line-above ()
-"Insert a newline above the current line and put point at beginning."
-(interactive)
-(unless (bolp)
-(beginning-of-line))
-(newline)
-(forward-line -1)
-(indent-according-to-mode))
-
 (defun my-center-line (&rest _)
   (evil-scroll-line-to-center nil))
 
@@ -65,32 +49,50 @@
 
 (define-key evil-normal-state-map "p" 'evil-paste-after-from-0)
 (define-key evil-normal-state-map "x" 'evil-x-as-cut)
-(define-key evil-normal-state-map "d" 'evil-d-into-void)
+;; (define-key evil-normal-state-map "d" 'evil-d-into-void)
 
-(define-key evil-normal-state-map (kbd "C-V") 'evil-paste-after-from-clip)
 (define-key evil-insert-state-map (kbd "C-V") 'evil-paste-after-from-clip)
 
-;; (with-eval-after-load 'org
-;;   (org-defkey org-mode-map (kbd "M-h") nil))
-  ;; (org-defkey org-mode-map (kbd "M-h") #'org-metaleft))
-; (org-defkey org-mode-map "M-h" #'org-metaleft)
-; (define-key org-mode-map (kbd "h") #'org-metaleft)
-; (define-key org-mode-map (kbd "M-l") 'org-metaright)
+;; (define-key evil-normal-state-map (kbd "o") 'vi-open-line-below)
+;; (define-key evil-normal-state-map (kbd "O") 'vi-open-line-above)
 
-(define-key evil-normal-state-map (kbd "o") 'vi-open-line-below)
-(define-key evil-normal-state-map (kbd "O") 'vi-open-line-above)
+;; Shits bugged work around
+(define-key evil-normal-state-map "C" 'evil-change)
 
 (general-define-key  :states 'normal "c" (general-key-dispatch 'evil-c-into-void
+                                           "s" 'evil-surround-edit
+                                           "S" 'evil-Surround-edit
+
                                            "w" (general-simulate-key ('evil-c-into-void "iw"))
+                                           "W" (general-simulate-key ('evil-c-into-void "iW"))
 
                                            "\"" (general-simulate-key ('evil-c-into-void "i\""))
                                            "\'" (general-simulate-key ('evil-c-into-void "i\'"))
 
                                            "\(" (general-simulate-key ('evil-c-into-void "i\("))
                                            "\)" (general-simulate-key ('evil-c-into-void "i\)"))
+
+                                           "{" (general-simulate-key ('evil-c-into-void "i{"))
+                                           "}" (general-simulate-key ('evil-c-into-void "i}"))
+
+                                           "\[" (general-simulate-key ('evil-c-into-void "i\]"))
+                                           "\]" (general-simulate-key ('evil-c-into-void "i\["))
+
+                                           "<" (general-simulate-key ('evil-c-into-void "i<"))
+                                           ">" (general-simulate-key ('evil-c-into-void "i>"))
                    ))
 
 ;; (general-vmap "c" 'evil-change)
+
+(defun simulate-key-press (key)
+  "Pretend that KEY was pressed.
+KEY must be given in `kbd' notation."
+  `(lambda () (interactive)
+     (setq prefix-arg current-prefix-arg)
+     (setq unread-command-events (listify-key-sequence (read-kbd-macro ,key)))))
+
+(doom--define-leader-key :states 'normal "o" (simulate-key-press "C-c"))
+;; (global-set-key (kbd "C-x C-x") (simulate-key-press "C-c"))
 
 (load! "+theme.el")
 (load! "+bindings.el")
