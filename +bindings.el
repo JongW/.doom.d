@@ -1,4 +1,18 @@
-;;; ~/.doom.d/+bindings_custom2.el -*- lexical-binding: t; -*-
+;;; ~/.doom.d/+bindings.el -*- lexical-binding: t; -*-
+
+;; Custom functions
+(defun my-ivy-switch-buffer (regex-list)
+  (let ((ivy-ignore-buffers regex-list))
+    (ivy-switch-buffer)))
+
+(defun my-show-only-irc-buffers ()
+  (interactive)
+  (my-ivy-switch-buffer '("^[^#]")))
+
+(defun my-also-ignore-star-buffers ()
+  "ignore everything starting with a star along with whatever ivy's defaults are"
+  (interactive)
+  (my-ivy-switch-buffer (append ivy-ignore-buffers `("^\*"))))
 
 (defun vi-open-line-below ()
   "Insert a newline below the current line and put point at beginning."
@@ -17,6 +31,7 @@
 (indent-according-to-mode))
 
 (map!
+      
  :nmvo doom-leader-key nil
  :nmvo doom-localleader-key nil
 
@@ -24,6 +39,8 @@
  ;; A little sandbox to run code in
  :gnvime "M-;" #'eval-expression
  :gnvime "M-:" #'doom/open-scratch-buffer
+
+ :i [remap newline] #'newline-and-indent  ; auto-indent on newline
 
  :gnvime (kbd "H-h") (kbd "<left>")
  :gnvime (kbd "H-j") (kbd "<down>")
@@ -40,9 +57,11 @@
  :n "O" 'vi-open-line-above
  :v  "<"     #'+evil/visual-dedent  ; vnoremap < <gv
  :v  ">"     #'+evil/visual-indent  ; vnoremap > >gv
- :nvimo "0" #'evil-first-non-blank
- :nvimo "H" #'evil-first-non-blank
- :nvimo "L" #'evil-end-of-line
+
+ :nvmo "0" #'evil-first-non-blank
+ :nvmo "H" #'evil-first-non-blank
+ :nvmo "L" #'evil-end-of-line
+
  :n "<up>" #'evil-scroll-line-up
  :n "<down>" #'evil-scroll-line-down
 
@@ -60,14 +79,19 @@
   ;; Buffer management
    :n "[" #'previous-buffer
    :n "]" #'next-buffer
-   :n "d" #'kill-this-buffer
+
+   :n "d" #'+lookup/documentation
    :n "D" #'doom/kill-other-buffers
+
+   :n "m" #'doom/window-maximize-buffer
+
+   :n "b" #'my-also-ignore-star-buffers
   
    :n "q" #'delete-window
    :n "w" #'save-buffer
 
-   :n "P" #'find-file
-   :n "p" #'project-find-file
+   :n "P" #'counsel-find-file
+   :n "p" #'counsel-projectile-find-file
    :n "e" #'neotree-toggle
 
    :n "r" #'evil-show-registers
@@ -95,7 +119,7 @@
      :desc "Next hunk"         :nv "]" #'git-gutter:next-hunk
      :desc "Previous hunk"     :nv "[" #'git-gutter:previous-hunk)
 
-   (:desc "workspace" :prefix "TAB"
+   (:prefix("TAB" . "workspace")
      :desc "Display tab bar"          :n "TAB" #'+workspace/display
      :desc "New workspace"            :n "n"   #'+workspace/new
      :desc "Load workspace from file" :n "l"   #'+workspace/load
@@ -105,7 +129,7 @@
      :desc "Delete session"           :n "X"   #'+workspace/kill-session
 
      :desc "Delete this workspace"    :n "d"   #'+workspace/delete
-
+     :desc "Save workspace"           :n "s"   #'+workspace/save
      :desc "Next workspace"           :n "]"   #'+workspace/switch-right
      :desc "Previous workspace"       :n "["   #'+workspace/switch-left
      :desc "Rename workspace"         :n "r"   #'+workspace:rename
@@ -120,7 +144,7 @@
      :desc "Switch to 8th workspace"  :n "8"   (λ! (+workspace/switch-to 7))
      :desc "Switch to 9th workspace"  :n "9"   (λ! (+workspace/switch-to 8)))
 
-   (:desc "Extra commands" :prefix "z"
+   (:prefix("z" . "Extra commands")
      :desc "Private config" :n "p" #'doom/open-private-config
      :desc "Sudo this file" :n "s" #'doom/sudo-this-file
      :desc "Restart and restore"  :n "r" #'doom/restart-and-restore)

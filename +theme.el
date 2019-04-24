@@ -1,9 +1,12 @@
 ;;; ~/.doom.d/+theme.el -*- lexical-binding: t; -*-
-(require 'company)
-(setq company-idle-delay 0
-      company-minimum-prefix-length 1)
 
-(setq doom-font (font-spec :family "Iosevka Term" :size 18))
+(after! company
+  (setq company-idle-delay 0.3
+        company-minimum-prefix-length 1)
+        company-global-modes '(not org-mode))
+
+(setq doom-font (font-spec :family "Iosevka Term" :size 35))
+;; (setq doom-font (font-spec :family "Iosevka Term" :size 18))
 
 (setq-default display-line-numbers-type 'relative)
 (custom-set-faces '(line-number-current-line ((t :weight bold

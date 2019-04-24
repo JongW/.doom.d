@@ -21,7 +21,7 @@
         ;;deft              ; notational velocity for Emacs
         doom              ; what makes DOOM look the way it does
         doom-dashboard    ; a nifty splash screen for Emacs
-        doom-quit         ; DOOM quit-message prompts when you quit Emacs
+        ;; doom-quit         ; DOOM quit-message prompts when you quit Emacs
         evil-goggles      ; display visual hints when editing in evil
         ;;fill-column       ; a `fill-column' indicator
         hl-todo           ; highlight TODO/FIXME/NOTE tags
@@ -38,7 +38,7 @@
         ;;unicode           ; extended unicode support for various languages
         vc-gutter         ; vcs diff in the fringe
         vi-tilde-fringe   ; fringe tildes to mark beyond EOB
-        window-select     ; visually switch windows
+        ;; window-select     ; visually switch windows
 
         :editor
         fold              ; (nigh) universal code folding
@@ -68,7 +68,7 @@
         flycheck          ; tasing you for every semicolon you forget
         ;;flyspell          ; tasing you for misspelling mispelling
         ;;gist              ; interacting with github gists
-        ;; lsp
+        lsp
         ;;macos             ; MacOS-specific commands
         magit             ; a git porcelain for Emacs
         ;;make              ; run make tasks from Emacs
@@ -129,7 +129,7 @@
         ;;ruby              ; 1.step do {|i| p "Ruby is #{i.even? ? 'love' : 'life'}"}
         ;;rust              ; Fe2O3.unwrap().unwrap().unwrap().unwrap()
         ;;scala             ; java, but good
-        (sh +fish)        ; she sells (ba|z|fi)sh shells on the C xor
+        ;; (sh +fish)        ; she sells (ba|z|fi)sh shells on the C xor
         ;;solidity          ; do you need a blockchain? No.
         ;;swift             ; who asked for emoji variables?
         ;;terra             ; Earth and Moon in alignment for performance.
@@ -161,4 +161,3 @@
        ;; provides a Spacemacs-inspired keybinding scheme and a smartparens
        ;; config. Use it as a reference for your own modules.
        (default +smartparens))
-
