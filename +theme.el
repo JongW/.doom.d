@@ -1,9 +1,9 @@
 ;;; ~/.doom.d/+theme.el -*- lexical-binding: t; -*-
 
 (after! company
-  (setq company-idle-delay 0.3
+  (setq company-idle-delay 0.1
         company-minimum-prefix-length 1)
-        company-global-modes '(not org-mode))
+  company-global-modes '(not org-mode))
 
 (setq doom-font (font-spec :family "Iosevka Term" :size 35))
 ;; (setq doom-font (font-spec :family "Iosevka Term" :size 18))

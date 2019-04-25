@@ -91,7 +91,7 @@
    :n "w" #'save-buffer
 
    :n "P" #'counsel-find-file
-   :n "p" #'counsel-projectile-find-file
+   :n "p" #'+ivy/projectile-find-file
    :n "e" #'neotree-toggle
 
    :n "r" #'evil-show-registers
@@ -170,11 +170,9 @@
    :n [tab]       #'neotree-quick-look
    :n "RET"       #'neotree-enter
    :n [backspace] #'evil-window-prev
-   :n "c"         #'neotree-create-node
+   :n "n"         #'neotree-create-node
    :n "j"         #'neotree-next-line
    :n "k"         #'neotree-previous-line
-   :n "n"         #'neotree-next-line
-   :n "p"         #'neotree-previous-line
    :n "h"         #'+neotree/collapse-or-up
    :n "l"         #'+neotree/expand-or-open
    :n "J"         #'neotree-select-next-sibling-node

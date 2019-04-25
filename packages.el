@@ -5,5 +5,13 @@
 ;; (package! some-package)
 (package! general :recipe (:fetcher github :repo "noctuid/general.el"))
 (package! emacs-doom-themes :recipe (:fetcher github :repo "hlissner/emacs-doom-themes"))
-(package! php-mode :recipe (:fetcher github :repo "emacs-php/php-mode"))
+;; Fixed php mode
+;; (package! php-cs-fixer)
 ;;
+;; Packages to disable
+(package! ace-window :disable t)
+(package! tide :disable t)
+(package! graphql-mode :disable t)
+(package! dhall-mode :disable t)
+(package! ivy-hydra :disable t)
+(package! amx :disable t)

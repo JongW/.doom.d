@@ -39,6 +39,15 @@ KEY must be given in `kbd' notation."
 
 (doom--define-leader-key :states 'normal "o" (simulate-key-press "C-c"))
 
+;; (defun simulate-key-press (key) ('simulate-key-press-lambda key))
+
+;; (defun simulate-key-press-lambda (key)
+;;   (interactive)
+;;      (setq prefix-arg current-prefix-arg)
+;;      (setq unread-command-events (listify-key-sequence (read-kbd-macro ,key))))
+
+;; (doom--define-leader-key :states 'normal "o" (simulate-key-press "C-c"))
+
 (vimish-fold-global-mode 1)
 
 (after! lsp-ui
