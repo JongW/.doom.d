@@ -146,9 +146,12 @@
 
    (:prefix("z" . "Extra commands")
      :desc "Private config" :n "p" #'doom/open-private-config
+     :desc "New window"  :n "n" #'make-frame
      :desc "Sudo this file" :n "s" #'doom/sudo-this-file
-     :desc "Restart and restore"  :n "r" #'doom/restart-and-restore)
-
+     :desc "Restart and restore"  :n "r" #'doom/restart-and-restore
+     :desc "Insert snippets"  :n "s" #'yas-insert-snippet
+     :desc "Neotree dir"  :n "e" #'neotree-dir
+     :desc "Format code" :n "t" #'+format/buffer)
 
    )
 
@@ -170,7 +173,9 @@
    :n [tab]       #'neotree-quick-look
    :n "RET"       #'neotree-enter
    :n [backspace] #'evil-window-prev
+
    :n "n"         #'neotree-create-node
+
    :n "j"         #'neotree-next-line
    :n "k"         #'neotree-previous-line
    :n "h"         #'+neotree/collapse-or-up
@@ -179,12 +184,15 @@
    :n "K"         #'neotree-select-previous-sibling-node
    :n "H"         #'neotree-select-up-node
    :n "L"         #'neotree-select-down-node
+
    :n "G"         #'evil-goto-line
    :n "gg"        #'evil-goto-first-line
+
    :n "v"         #'neotree-enter-vertical-split
    :n "s"         #'neotree-enter-horizontal-split
+
    :n "q"         #'neotree-hide
-   :n "R"         #'neotree-refresh)
+   :n "r"         #'neotree-refresh)
 
  ;; company
  :i "C-SPC"    #'+company/complete

@@ -53,6 +53,9 @@ KEY must be given in `kbd' notation."
 (after! lsp-ui
   (setq lsp-ui-doc-max-height 95))
 
+;; Auto start lsp for python files
+(add-hook 'python-mode-hook #'lsp)
+
 (load! "+clipboard.el")
 (load! "+theme.el")
 (load! "+bindings.el")

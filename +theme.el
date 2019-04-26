@@ -3,7 +3,7 @@
 (after! company
   (setq company-idle-delay 0.1
         company-minimum-prefix-length 1)
-  company-global-modes '(not org-mode))
+        company-global-modes '(not org-mode))
 
 (setq doom-font (font-spec :family "Iosevka Term" :size 35))
 ;; (setq doom-font (font-spec :family "Iosevka Term" :size 18))
@@ -37,9 +37,6 @@
 
 ;; Enable custom neotree theme (all-the-icons must be installed!)
 (doom-themes-neotree-config)
-
-;; or for treemacs users
-(doom-themes-treemacs-config)
 
 ;; Corrects (and improves) org-mode's native fontification.
 (doom-themes-org-config)
