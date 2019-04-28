@@ -158,6 +158,14 @@ determine the exact padding."
    (rainbow-delimiters-depth-6-face :foreground orange)
    (rainbow-delimiters-depth-7-face :foreground green)
 
+   ;; (solaire-mode-line-face
+   ;;  :background yellow)
+
+   ;; (solaire-mode-line-inactive-face
+   ;;  :background orange)
+
+   (solaire-default-face :background bg)
+   (solaire-minibuffer-face :background (doom-darken bg 0.15))
 
    ;; --- major-mode faces -------------------
    ;; css-mode / scss-mode
