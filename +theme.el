@@ -16,7 +16,8 @@
 ;; (load-theme 'doom-dracula t)
 ;; (load-theme 'doom-spacegrey t)
 ;; (load-theme 'doom-tomorrow-night t)
-(load-theme 'doom-gruvbox t)
+;; (load-theme 'doom-gruvbox t)
+(setq doom-theme 'doom-gruvbox)
 ;; (load-theme 'doom-city-lights t)
 ;;
 ;; Enable flashing mode-line on errors
