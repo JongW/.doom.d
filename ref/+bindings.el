@@ -9,13 +9,12 @@
             doom-leader-alt-key doom-localleader-alt-key))
 
 
-;;
 ;;; Global keybindings
 (map! (:map override
         ;; A little sandbox to run code in
         "M-;" #'eval-expression
         "A-;" #'eval-expression)
-
+      test
       ;; Smart tab
       :i [tab] (general-predicate-dispatch nil ; fall back to nearest keymap
                  (and (featurep! :feature snippets)

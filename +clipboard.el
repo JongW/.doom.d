@@ -25,9 +25,45 @@
   (let ((evil-this-register ?_))
     (call-interactively 'evil-delete)))
 
+(defun evil-dd-into-void()
+  (interactive)
+  (let ((evil-this-register ?_))
+    (call-interactively 'evil-delete-whole-line)))
+
 (define-key evil-normal-state-map "p" 'evil-paste-after-from-0)
 (define-key evil-normal-state-map "x" 'evil-x-as-cut)
-(define-key evil-normal-state-map "d" 'evil-d-into-void)
+;; (define-key evil-normal-state-map "d" 'evil-d-into-void)
+;; (define-key evil-normal-state-map "dd" 'evil-dd-into-void)
+
+;; Key definitions w/o map macro
+(general-define-key
+ :states 'normal "c"
+ (general-key-dispatch 'evil-c-into-void
+   "s" 'evil-surround-edit
+   "S" 'evil-Surround-edit
+
+   "w" (general-simulate-key ('evil-c-into-void "iw"))
+   "W" (general-simulate-key ('evil-c-into-void "iW"))
+
+   "\"" (general-simulate-key ('evil-c-into-void "i\""))
+   "\'" (general-simulate-key ('evil-c-into-void "i\'"))
+
+   "\(" (general-simulate-key ('evil-c-into-void "i\("))
+   "\)" (general-simulate-key ('evil-c-into-void "i\)"))
+
+   "{" (general-simulate-key ('evil-c-into-void "i{"))
+   "}" (general-simulate-key ('evil-c-into-void "i}"))
+
+   "\[" (general-simulate-key ('evil-c-into-void "i\]"))
+   "\]" (general-simulate-key ('evil-c-into-void "i\["))
+
+   "<" (general-simulate-key ('evil-c-into-void "i<"))
+   ">" (general-simulate-key ('evil-c-into-void "i>"))))
+
+(general-define-key
+ :states 'normal "d"
+ (general-key-dispatch 'evil-d-into-void
+   "d" 'evil-dd-into-void))
 
 (define-key evil-insert-state-map (kbd "C-V") 'evil-paste-after-from-clip)
 

@@ -1,4 +1,5 @@
 ;;; ~/.doom.d/+bindings.el -*- lexical-binding: t; -*-
+;;;
 
 ;; Custom functions
 (defun my-ivy-switch-buffer (regex-list)
@@ -16,22 +17,45 @@
 
 (defun vi-open-line-below ()
   "Insert a newline below the current line and put point at beginning."
-(interactive)
-(unless (eolp)
-(end-of-line))
-(newline-and-indent))
+  (interactive)
+  (unless (eolp)
+    (end-of-line))
+  (newline-and-indent))
 
 (defun vi-open-line-above ()
-"Insert a newline above the current line and put point at beginning."
-(interactive)
-(unless (bolp)
-(beginning-of-line))
-(newline)
-(forward-line -1)
-(indent-according-to-mode))
+  "Insert a newline above the current line and put point at beginning."
+  (interactive)
+  (unless (bolp)
+    (beginning-of-line))
+  (newline)
+  (forward-line -1)
+  (indent-according-to-mode))
+
+
+(defun yas-complete-or-company ()
+  (interactive)
+  (if (yas-maybe-expand-abbrev-key-filter 'yas-expand)
+      (yas-expand)
+    (company-yasnippet 'interactive)))
+
+(defun company-yas-complete-or-company ()
+  (interactive)
+  (if (yas-maybe-expand-abbrev-key-filter 'yas-expand)
+      (yas-expand)
+    (company-abort)
+    (company-yasnippet 'interactive)
+    )
+  )
+
+(defun simulate-key-press (key)
+  "Pretend that KEY was pressed.
+KEY must be given in `kbd' notation."
+  `(lambda () (interactive)
+     (setq prefix-arg current-prefix-arg)
+     (setq unread-command-events (listify-key-sequence (read-kbd-macro ,key)))))
 
 (map!
-      
+
  :nmvo doom-leader-key nil
  :nmvo doom-localleader-key nil
 
@@ -39,6 +63,36 @@
  ;; A little sandbox to run code in
  :gnvime "M-;" #'eval-expression
  :gnvime "M-:" #'doom/open-scratch-buffer
+
+ :i "C-SPC"    #'+company/complete
+ :i "C-s" 'yas-complete-or-company
+ :i "C-t" 'company-yasnippet
+
+ ;; Smart tab
+ ;; :i "C-SPC" (general-predicate-dispatch nil ; fall back to nearest keymap
+ ;;              (and (featurep! :feature snippets)
+ ;;                   (bound-and-true-p yas-minor-mode)
+ ;;                   (yas-maybe-expand-abbrev-key-filter 'yas-expand))
+ ;;              'yas-expand
+ ;;              #'company/complete)
+
+ :n [tab] (general-predicate-dispatch nil
+            (and (featurep! :editor fold)
+                 (save-excursion (end-of-line) (invisible-p (point))))
+            '+fold/toggle
+            (fboundp 'evilmi-jump-items)
+            'evilmi-jump-items)
+ :v [tab] (general-predicate-dispatch nil
+            (and (bound-and-true-p yas-minor-mode)
+                 (or (eq evil-visual-selection 'line)
+                     (and (fboundp 'evilmi-jump-items)
+                          (save-excursion
+                            (/= (point)
+                                (progn (evilmi-jump-items nil)
+                                       (point)))))))
+            'yas-insert-snippet
+            (fboundp 'evilmi-jump-items)
+            'evilmi-jump-items)
 
  :i [remap newline] #'newline-and-indent  ; auto-indent on newline
 
@@ -52,7 +106,7 @@
  "M-="    #'text-scale-increase
  "M--"    #'text-scale-decrease
 
-;; Vim key bindings
+ ;; Vim key bindings
  :n "o" 'vi-open-line-below
  :n "O" 'vi-open-line-above
  :v  "<"     #'+evil/visual-dedent  ; vnoremap < <gv
@@ -68,7 +122,7 @@
  :n "-" #'ranger
 
  (:leader
-  ;; Window management
+   ;; Window management
    :n  "h"   #'evil-window-left
    :n  "j"   #'evil-window-down
    :n  "k"   #'evil-window-up
@@ -76,7 +130,7 @@
    :desc "Horizonal Split"        :n  "s"   #'split-window-below
    :desc "Vertical Split"         :n  "v"   #'evil-window-vsplit
 
-  ;; Buffer management
+   ;; Buffer management
    :n "[" #'previous-buffer
    :n "]" #'next-buffer
 
@@ -86,7 +140,7 @@
    :n "m" #'doom/window-maximize-buffer
 
    :n "b" #'my-also-ignore-star-buffers
-  
+
    :n "q" #'delete-window
    :n "w" #'save-buffer
 
@@ -150,6 +204,7 @@
      :desc "Sudo this file" :n "s" #'doom/sudo-this-file
      :desc "Restart and restore"  :n "r" #'doom/restart-and-restore
      :desc "Insert snippets"  :n "s" #'yas-insert-snippet
+     :desc "Reload theme"  :n "l" #'doom/reload-theme
      :desc "Neotree dir"  :n "e" #'neotree-dir
      :desc "Format code" :n "t" #'+format/buffer)
 
@@ -195,13 +250,16 @@
    :n "r"         #'neotree-refresh)
 
  ;; company
- :i "C-SPC"    #'+company/complete
  (:after company
    :map company-active-map
    [tab]         #'company-complete-common-or-cycle
+   ;; "C-q"      #'company-abort
+   [escape]      #'company-abort
    "H-j"         #'company-select-next
    "H-k"         #'company-select-previous
    "C-l"         #'company-next-page
+   "C-t"     (λ! (company-abort) (company-yasnippet 'interactive))
+   "C-s"         'company-yas-complete-or-company
    "C-h"         #'company-previous-page
    "C-d"         #'company-show-doc-buffer
    )
@@ -213,7 +271,7 @@
    :n "M-k" #'org-metaup
    :n "M-j" #'org-metadown
 
-;; Tidy up whick-key and replace commands
+   ;; Tidy up whick-key and replace commands
    "C-c C-d" nil
    "C-c d" #'org-deadline
    "C-c C-t" nil
@@ -225,7 +283,7 @@
    "C-c C-_" nil ;; org-down element
    "C-c C->" nil ;; org-outline-promote
    "C-c C-<" nil ;; org-outline-demote
-  
+
    :n "\{" #'org-next-visible-heading
    :n "\}" #'org-previous-visible-heading
 
@@ -256,3 +314,16 @@
 
       (:after view
         (:map view-mode-map "<escape>" #'View-quit-all)))
+
+(doom--define-leader-key :states 'normal "o" (simulate-key-press "C-c"))
+
+;; Center serach results w/ evil
+(defun my-center-line (&rest _)
+  (evil-scroll-line-to-center nil))
+
+(advice-add 'evil-ex-search-next :after #'my-center-line)
+(advice-add 'evil-ex-search-previous :after #'my-center-line)
+
+;; Make jk even more global!
+(after! ivy
+  (key-chord-define ivy-minibuffer-map "jk" #'keyboard-escape-quit))
