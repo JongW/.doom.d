@@ -7,19 +7,18 @@
 (require 'indent-guide)
 (indent-guide-global-mode)
 
-(require 'solaire-mode)
+;; (require 'solaire-mode)
 
-;; Enable solaire-mode anywhere it can be enabled
-(solaire-global-mode +1)
-;; To enable solaire-mode unconditionally for certain modes:
-(add-hook 'ediff-prepare-buffer-hook #'solaire-mode)
+;; ;; Enable solaire-mode anywhere it can be enabled
+;; (solaire-global-mode +1)
+;; ;; To enable solaire-mode unconditionally for certain modes:
+;; (add-hook 'ediff-prepare-buffer-hook #'solaire-mode)
 
-;; ...if you use auto-revert-mode, this prevents solaire-mode from turning
-;; itself off every time Emacs reverts the file
-(add-hook 'after-revert-hook #'turn-on-solaire-mode)
+;; ;; ...if you use auto-revert-mode, this prevents solaire-mode from turning
+;; ;; itself off every time Emacs reverts the file
+;; (add-hook 'after-revert-hook #'turn-on-solaire-mode)
 
-;; highlight the minibuffer when it is activated:
-(add-hook 'minibuffer-setup-hook #'solaire-mode-in-minibuffer)
+;; ;; highlight the minibuffer when it is activated:
 
 (load! "+theme.el")
 (load! "+lang.el")
@@ -27,4 +26,8 @@
 (load! "+clipboard.el")
 (load! "+bindings.el")
 
-(add-hook 'doom-init-theme-hook #'solaire-modeswap-bg t)
+;; (require 'solaire-mode)
+;; (add-hook 'doom-init-theme-hook #'solaire-modeswap-bg t)
+;; (add-hook 'minibuffer-setup-hook #'solaire-mode-in-minibuffer)
+;; (add-hook 'after-revert-hook #'turn-on-solaire-mode)
+;; (add-hook 'ediff-prepare-buffer-hook #'solaire-mode)

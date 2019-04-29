@@ -1,4 +1,4 @@
-;; doom-gruvbox-theme.el --- inspired by Textmate's monokai
+;; doom-gruvbox-theme.el --- inspired by morhetz gruvbox
 (require 'doom-themes)
 
 ;;
@@ -24,12 +24,12 @@ determine the exact padding."
 
 ;;
 (def-doom-theme doom-gruvbox
-  "A dark, vibrant theme inspired by Textmate's monokai."
+  "Dark theme with pastel 'retro groove' colors."
 
   ;; name        gui       256       16
   ((bg         '("#282828" nil       nil          ))
    (bg-alt     '("#282828" nil       nil          ))
-   (accent     '("#504945" nil       nil          ))
+   (accent     '("#504945" "#504945" "brown"          ))
    (base0      '("#1B2229" "black"   "black"      ))
    (base1      '("#151617" "#101010" "brightblack"))
    (base2      '("#1d1f20" "#191919" "brightblack"))
@@ -45,52 +45,41 @@ determine the exact padding."
 
    (grey       '("#555556" "#515154" "brightblack"))
    (red        '("#fb4934" "#e74c3c" "red"))
+   (magenta    '("#fb2874" "#fb2874" "magenta"))
+   (violet     '("#d3869b" "#d3869b" "brightmagenta"))
    (orange     '("#fe8019" "#fd971f" "brightred"))
-
-   (dark-green      '("#689d6a" "#b6e63e" "green"))
-   (green      '("#8ec07c" "#b6e63e" "green"))
-
+   (yellow     '("#fabd2f" "#fabd2f" "yellow"))
+   (dark-green      '("#689d6a" "#689d6a" "green"))
+   (green      '("#8ec07c" "#8ec07c" "green"))
    (teal       green)
-   (olive     '("#b8bb26" nil       nil          ))
-   (yellow     '("#fabd2f" "#e2c770" "yellow"))
-
+   (olive     '("#b8bb26" "#b8bb26" "green"))
    (blue       '("#268bd2" "#2686D6" "brightblue"))
    (dark-blue  '("#727280" "#727280" "blue"))
-
-   (magenta    '("#fb2874" "#fb2874" "magenta"))
-   (violet     '("#d3869b" "#9c91e4" "brightmagenta"))
-
-   (cyan       '("#83a598" "#66d9ef" "brightcyan"))
-   (dark-cyan  '("#458588" "#8FA1B3" "cyan"))
+   (cyan       '("#83a598" "#83a598" "brightcyan"))
+   (dark-cyan  '("#458588" "#458588" "cyan"))
 
    ;; face categories
    (highlight      orange)
    (vertical-bar   grey)
    (selection      accent)
    (builtin        orange)
-
-  ;;TODO change gruvbox brighter comments colors
-   (comments       (if doom-gruvbox-brighter-comments violet fg-light))
-   (doc-comments   (if doom-gruvbox-brighter-comments (doom-lighten violet 0.1) fg-light))
-
+   (comments       (if doom-gruvbox-brighter-comments olive fg-light))
+   (doc-comments   (if doom-gruvbox-brighter-comments (doom-lighten olive 0.1) fg-light))
    (constants      yellow)
    (functions      green)
    (keywords       red)
    (methods        green)
    (operators      cyan)
-
    (type           green)
-
    (strings        olive)
    (variables      fg)
-
    (numbers        violet)
-   (region         base4)
+   (region         accent)
    (error          red)
    (warning        yellow)
-
    (success        green)
-   (vc-modified    base4)
+
+   (vc-modified    accent)
    (vc-added       (doom-darken green 0.15))
    (vc-deleted     red)
 
@@ -100,6 +89,12 @@ determine the exact padding."
       (if (integerp doom-gruvbox-padded-modeline)
           doom-gruvbox-padded-modeline
         4)))
+
+   (hidden yellow)
+   (modeline-bg accent)
+   (modeline-bg-l accent)
+   (modeline-bg-inactive yellow)
+   (modeline-bg-inactive-l yellow)
 
    (org-quote `(,(doom-lighten (car bg) 0.05) "#1f1f1f")))
 
@@ -114,7 +109,7 @@ determine the exact padding."
 
   ;; doom modeline
    (mode-line
-    :background accent :foreground (doom-lighten fg-alt 0.2)
+    :background accent :foreground fg-light
     :box (if -modeline-pad `(:line-width ,-modeline-pad :color base3)))
 
    (mode-line-inactive
@@ -122,29 +117,28 @@ determine the exact padding."
     :box (if -modeline-pad `(:line-width ,-modeline-pad :color base2)))
 
    (doom-modeline-bar :background green)
-   (doom-modeline-panel :background green :foreground "white")
-   (doom-modeline-buffer-modified :inherit 'bold :foreground fg)
+   (doom-modeline-panel :background dark-green :foreground fg)
 
-   (doom-modeline-buffer-path :inherit 'bold :foreground (doom-lighten fg-alt 0.2))
-   (doom-modeline-project-dir :bold t :foreground (doom-lighten fg-alt 0.2))
+   (doom-modeline-project-dir :bold t :foreground cyan)
+   (doom-modeline-buffer-path :inherit 'bold :foreground green)
+   (doom-modeline-buffer-file :inherit 'bold :foreground fg)
+   (doom-modeline-buffer-modified :inherit 'bold :foreground olive)
 
-   (doom-modeline-buffer-major-mode :foreground yellow :bold t)
+   (doom-modeline-buffer-major-mode :foreground green :bold t)
+   (doom-modeline-warning :foreground red :bold t)
    (doom-modeline-info :bold t :foreground orange)
 
-   ((line-number &override) :foreground base5 :distant-foreground nil)
-   ((line-number-current-line &override) :foreground base7 :distant-foreground nil)
-
+   ;; Search
    (isearch :foreground base0 :background yellow)
+   (evil-search-highlight-persist-highlight-face :background orange)
+
+   ;; evil-snipe
+   (evil-snipe-first-match-face :foreground "white" :background yellow)
+   (evil-snipe-matches-face     :foreground yellow :bold t :underline t)
 
    ;; ediff
    (ediff-fine-diff-A :background (doom-blend red bg 0.3) :weight 'bold)
 
-   ;; evil-mode
-   (evil-search-highlight-persist-highlight-face :background orange)
-
-   ;; evil-snipe
-   (evil-snipe-first-match-face :foreground base0 :background yellow)
-   (evil-snipe-matches-face     :foreground yellow :bold t :underline t)
 
    ;; flycheck
    (flycheck-error   :underline `(:style wave :color ,red)    :background base3)
@@ -156,6 +150,7 @@ determine the exact padding."
 
    ;; ivy
    (ivy-current-match :background accent)
+   ;; (ivy-match-required-face :foreground green)
    ;; warm
    ;; (ivy-minibuffer-match-face-1 :background nil :foreground red)
    ;; (ivy-minibuffer-match-face-2 :background nil :foreground red)
@@ -164,9 +159,9 @@ determine the exact padding."
    (ivy-action :background nil :foreground cyan)
    (ivy-grep-line-number :background nil :foreground cyan)
 
-   (ivy-minibuffer-match-face-1 :background nil :foreground red)
-   (ivy-minibuffer-match-face-2 :background nil :foreground red)
-   (minibuffer-prompt :foreground green)
+   (ivy-minibuffer-match-face-1 :background nil :foreground olive)
+   (ivy-minibuffer-match-face-2 :background nil :foreground olive)
+   (minibuffer-prompt :foreground olive)
 
    ;; neotree
    (neo-dir-link-face   :foreground cyan)
@@ -191,13 +186,34 @@ determine the exact padding."
    (which-key-command-description-face :foreground fg)
    (which-key-group-description-face :foreground fg-light)
 
+  ;; company
+   (company-preview-common :foreground green)
+   (company-tooltip-common :foreground green)
+   (company-tooltip-common-selection :foreground green)
+   (company-tooltip-annotation :foreground cyan)
+   (company-tooltip-annotation-selection :foreground cyan)
+
+   (company-scrollbar-bg :background fg)
+   (company-scrollbar-fg :background green)
+
    ;; (solaire-mode-line-face
    ;;  :background yellow)
 
    ;; (solaire-mode-line-inactive-face
    ;;  :background orange)
 
-   (solaire-minibuffer-face :background (doom-lighten bg 0.025))
+   (solaire-default-face :background yellow)
+   ;; (solaire-fringe-face :background yellow)
+   ;; (solaire-mode-line-face
+   ;;  :inherit 'mode-line
+   ;;  :background accent
+   ;;  :box (if -modeline-pad `(:line-width ,-modeline-pad :color ,modeline-bg-l)))
+   ;; (solaire-mode-line-inactive-face
+   ;;  :inherit 'mode-line-inactive
+   ;;  :background bg
+   ;;  :box (if -modeline-pad `(:line-width ,-modeline-pad :color ,modeline-bg-inactive-l)))
+
+   ;; (solaire-minibuffer-face :background (doom-darken bg 0.2))
 
    ;; --- major-mode faces -------------------
    ;; css-mode / scss-mode
@@ -222,8 +238,12 @@ determine the exact padding."
    (org-tag :foreground yellow :bold nil)
    (org-quote :inherit 'italic :foreground base7 :background org-quote)
    (org-todo :foreground yellow :bold 'inherit)
+
+   (elscreen-tab-other-screen-face :background "#353a42" :foreground "#1e2022")
+
    (org-list-dt :foreground yellow))
 
+   ;; ;; elscreen
 
   ;; --- extra variables --------------------
   ;; ()

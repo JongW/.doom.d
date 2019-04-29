@@ -17,7 +17,13 @@
 ;; (load-theme 'doom-spacegrey t)
 ;; (load-theme 'doom-tomorrow-night t)
 ;; (load-theme 'doom-gruvbox t)
+;; (setq doom-theme 'doom-gruvbox)
+;; (require 'solaire-mode)
+;; (add-hook 'doom-init-theme-hook #'solaire-modeswap-bg t)
+;;
 (setq doom-theme 'doom-gruvbox)
+;; (add-hook 'doom-init-theme-hook #'solaire-modeswap-bg t)
+
 ;; (load-theme 'doom-city-lights t)
 ;;
 ;; Enable flashing mode-line on errors
@@ -29,8 +35,8 @@
 ;; Corrects (and improves) org-mode's native fontification.
 (doom-themes-org-config)
 
-(setq doom-font (font-spec :family "Iosevka Term" :size 35))
-;; (setq doom-font (font-spec :family "Iosevka Term" :size 20))
+;; (setq doom-font (font-spec :family "Iosevka Term" :size 35))
+(setq doom-font (font-spec :family "Iosevka Term" :size 20))
 
 (setq all-the-icons-scale-factor 1)
 
@@ -58,5 +64,5 @@
 
 ;; (set-face-foreground 'highlight-quoted-symbol "#83a598")
 
-(set-frame-parameter (selected-frame) 'alpha '(90))
-(add-to-list 'default-frame-alist '(alpha . (90)))
+;; (set-frame-parameter (selected-frame) 'alpha '(90))
+;; (add-to-list 'default-frame-alist '(alpha . (90)))
