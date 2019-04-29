@@ -11,6 +11,11 @@
   :group 'doom-gruvbox-theme
   :type 'boolean)
 
+(defcustom doom-gruvbox-warm nil
+  "If non-nil, neotree/modeline will be in warmer colors"
+  :group 'doom-gruvbox-theme
+  :type 'boolean)
+
 (defcustom doom-gruvbox-padded-modeline doom-themes-padded-modeline
   "If non-nil, adds a 4px padding to the mode-line. Can be an integer to
 determine the exact padding."
@@ -36,18 +41,25 @@ determine the exact padding."
    (base8      '("#ffffff" "#ffffff" "brightwhite"))
    (fg         '("#ebdbb2" "#dfdfdf" "brightwhite"))
    (fg-alt    '("#928374" "#dfdfdf" "brightwhite"))
+   (fg-light (doom-lighten fg-alt 0.25))
 
    (grey       '("#555556" "#515154" "brightblack"))
    (red        '("#fb4934" "#e74c3c" "red"))
    (orange     '("#fe8019" "#fd971f" "brightred"))
+
+   (dark-green      '("#689d6a" "#b6e63e" "green"))
    (green      '("#8ec07c" "#b6e63e" "green"))
+
    (teal       green)
    (olive     '("#b8bb26" nil       nil          ))
    (yellow     '("#fabd2f" "#e2c770" "yellow"))
+
    (blue       '("#268bd2" "#2686D6" "brightblue"))
    (dark-blue  '("#727280" "#727280" "blue"))
+
    (magenta    '("#fb2874" "#fb2874" "magenta"))
    (violet     '("#d3869b" "#9c91e4" "brightmagenta"))
+
    (cyan       '("#83a598" "#66d9ef" "brightcyan"))
    (dark-cyan  '("#458588" "#8FA1B3" "cyan"))
 
@@ -58,8 +70,8 @@ determine the exact padding."
    (builtin        orange)
 
   ;;TODO change gruvbox brighter comments colors
-   (comments       (if doom-gruvbox-brighter-comments violet (doom-lighten fg-alt 0.25)))
-   (doc-comments   (if doom-gruvbox-brighter-comments (doom-lighten violet 0.1) (doom-lighten fg-alt 0.25)))
+   (comments       (if doom-gruvbox-brighter-comments violet fg-light))
+   (doc-comments   (if doom-gruvbox-brighter-comments (doom-lighten violet 0.1) fg-light))
 
    (constants      yellow)
    (functions      green)
@@ -110,9 +122,12 @@ determine the exact padding."
     :box (if -modeline-pad `(:line-width ,-modeline-pad :color base2)))
 
    (doom-modeline-bar :background green)
+   (doom-modeline-panel :background green :foreground "white")
    (doom-modeline-buffer-modified :inherit 'bold :foreground fg)
+
    (doom-modeline-buffer-path :inherit 'bold :foreground (doom-lighten fg-alt 0.2))
    (doom-modeline-project-dir :bold t :foreground (doom-lighten fg-alt 0.2))
+
    (doom-modeline-buffer-major-mode :foreground yellow :bold t)
    (doom-modeline-info :bold t :foreground orange)
 
@@ -141,13 +156,26 @@ determine the exact padding."
 
    ;; ivy
    (ivy-current-match :background accent)
-   (ivy-minibuffer-match-face-1 :background base1 :foreground base4)
+   ;; warm
+   ;; (ivy-minibuffer-match-face-1 :background nil :foreground red)
+   ;; (ivy-minibuffer-match-face-2 :background nil :foreground red)
+
+   (ivy-subdir :background nil :foreground cyan)
+   (ivy-action :background nil :foreground cyan)
+   (ivy-grep-line-number :background nil :foreground cyan)
+
+   (ivy-minibuffer-match-face-1 :background nil :foreground red)
    (ivy-minibuffer-match-face-2 :background nil :foreground red)
+   (minibuffer-prompt :foreground green)
 
    ;; neotree
    (neo-dir-link-face   :foreground cyan)
    (neo-expand-btn-face :foreground magenta)
-   (neo-root-dir-face :foreground yellow )
+   (neo-root-dir-face :foreground green )
+   (doom-neotree-dir-face :foreground cyan)
+   (doom-neotree-file-face :foreground fg)
+   (doom-neotree-hidden-file-face :foreground fg-light)
+   (doom-neotree-media-file-face :foreground fg-light)
 
    ;; rainbow-delimiters
    (rainbow-delimiters-depth-1-face :foreground red)
@@ -158,14 +186,18 @@ determine the exact padding."
    (rainbow-delimiters-depth-6-face :foreground orange)
    (rainbow-delimiters-depth-7-face :foreground green)
 
+   ;; which-key
+   (which-func :foreground green)
+   (which-key-command-description-face :foreground fg)
+   (which-key-group-description-face :foreground fg-light)
+
    ;; (solaire-mode-line-face
    ;;  :background yellow)
 
    ;; (solaire-mode-line-inactive-face
    ;;  :background orange)
 
-   (solaire-default-face :background bg)
-   (solaire-minibuffer-face :background (doom-darken bg 0.15))
+   (solaire-minibuffer-face :background (doom-lighten bg 0.025))
 
    ;; --- major-mode faces -------------------
    ;; css-mode / scss-mode
@@ -196,5 +228,4 @@ determine the exact padding."
   ;; --- extra variables --------------------
   ;; ()
   )
-
 ;;; doom-gruvbox-theme.el ends here

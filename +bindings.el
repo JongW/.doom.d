@@ -29,7 +29,7 @@
     (beginning-of-line))
   (newline)
   (forward-line -1)
-  (indent-according-to-mode))
+ (indent-according-to-mode))
 
 
 (defun yas-complete-or-company ()

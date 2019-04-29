@@ -5,9 +5,9 @@
 ;; (package! some-package)
 (package! general :recipe (:fetcher github :repo "noctuid/general.el"))
 (package! emacs-doom-themes :recipe (:fetcher github :repo "hlissner/emacs-doom-themes"))
+(package! doom-modeline :recipe (:fetcher github :repo "seagle0128/doom-modeline"))
 (package! key-chord :recipe (:fetcher github :repo "emacsorphanage/key-chord"))
 (package! indent-guide :recipe (:fetcher github :repo "zk-phi/indent-guide"))
-
 ;; Fixed php mode
 ;; (package! php-cs-fixer)
 ;;
