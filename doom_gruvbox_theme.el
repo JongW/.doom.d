@@ -30,6 +30,8 @@ determine the exact padding."
   ((bg         '("#282828" nil       nil          ))
    (bg-alt     '("#282828" nil       nil          ))
    (accent     '("#504945" "#504945" "brown"          ))
+   (solaire-bg  (doom-lighten bg 0.05) )
+
    (base0      '("#1B2229" "black"   "black"      ))
    (base1      '("#151617" "#101010" "brightblack"))
    (base2      '("#1d1f20" "#191919" "brightblack"))
@@ -90,12 +92,6 @@ determine the exact padding."
           doom-gruvbox-padded-modeline
         4)))
 
-   (hidden yellow)
-   (modeline-bg accent)
-   (modeline-bg-l accent)
-   (modeline-bg-inactive yellow)
-   (modeline-bg-inactive-l yellow)
-
    (org-quote `(,(doom-lighten (car bg) 0.05) "#1f1f1f")))
 
 
@@ -103,9 +99,14 @@ determine the exact padding."
   ((lazy-highlight :background yellow :foreground base0 :distant-foreground base0 :bold bold)
    (cursor :background "white")
 
-   (hl-line :background nil)
+   (hl-line :background solaire-bg)
+
    (indent-guide-face :foreground grey)
-   (line-number-current-line :background grey :foreground "white")
+
+   ((line-number-current-line &override) :background grey :foreground "white" :bold t)
+   ((line-number &override) :foreground grey)
+   ((show-paren-match &override) :foreground nil :background fg-alt :bold t)
+   ((show-paren-mismatch &override) :foreground nil :background "red")
 
   ;; doom modeline
    (mode-line
@@ -113,7 +114,7 @@ determine the exact padding."
     :box (if -modeline-pad `(:line-width ,-modeline-pad :color base3)))
 
    (mode-line-inactive
-    :background (doom-darken bg 0.2) :foreground base4
+    :background bg :foreground base4
     :box (if -modeline-pad `(:line-width ,-modeline-pad :color base2)))
 
    (doom-modeline-bar :background green)
@@ -134,11 +135,11 @@ determine the exact padding."
 
    ;; evil-snipe
    (evil-snipe-first-match-face :foreground "white" :background yellow)
+  ;; te te te te
    (evil-snipe-matches-face     :foreground yellow :bold t :underline t)
 
    ;; ediff
    (ediff-fine-diff-A :background (doom-blend red bg 0.3) :weight 'bold)
-
 
    ;; flycheck
    (flycheck-error   :underline `(:style wave :color ,red)    :background base3)
@@ -150,36 +151,31 @@ determine the exact padding."
 
    ;; ivy
    (ivy-current-match :background accent)
-   ;; (ivy-match-required-face :foreground green)
-   ;; warm
-   ;; (ivy-minibuffer-match-face-1 :background nil :foreground red)
-   ;; (ivy-minibuffer-match-face-2 :background nil :foreground red)
-
    (ivy-subdir :background nil :foreground cyan)
    (ivy-action :background nil :foreground cyan)
    (ivy-grep-line-number :background nil :foreground cyan)
-
    (ivy-minibuffer-match-face-1 :background nil :foreground olive)
    (ivy-minibuffer-match-face-2 :background nil :foreground olive)
    (minibuffer-prompt :foreground olive)
 
    ;; neotree
-   (neo-dir-link-face   :foreground cyan)
-   (neo-expand-btn-face :foreground magenta)
-   (neo-root-dir-face :foreground green )
+   (neo-root-dir-face   :foreground green )
    (doom-neotree-dir-face :foreground cyan)
+   (neo-dir-link-face   :foreground cyan)
    (doom-neotree-file-face :foreground fg)
    (doom-neotree-hidden-file-face :foreground fg-light)
    (doom-neotree-media-file-face :foreground fg-light)
 
+   (neo-expand-btn-face :foreground magenta)
+
    ;; rainbow-delimiters
    (rainbow-delimiters-depth-1-face :foreground red)
-   (rainbow-delimiters-depth-2-face :foreground orange)
-   (rainbow-delimiters-depth-3-face :foreground green)
-   (rainbow-delimiters-depth-4-face :foreground cyan)
-   (rainbow-delimiters-depth-5-face :foreground red)
-   (rainbow-delimiters-depth-6-face :foreground orange)
-   (rainbow-delimiters-depth-7-face :foreground green)
+   (rainbow-delimiters-depth-2-face :foreground green)
+   (rainbow-delimiters-depth-3-face :foreground yellow)
+   (rainbow-delimiters-depth-4-face :foreground orange)
+   (rainbow-delimiters-depth-5-face :foreground cyan)
+   (rainbow-delimiters-depth-6-face :foreground green)
+   (rainbow-delimiters-depth-7-face :foreground red)
 
    ;; which-key
    (which-func :foreground green)
@@ -202,8 +198,9 @@ determine the exact padding."
    ;; (solaire-mode-line-inactive-face
    ;;  :background orange)
 
-   (solaire-default-face :background yellow)
+   (solaire-default-face :background solaire-bg)
    ;; (solaire-fringe-face :background yellow)
+
    ;; (solaire-mode-line-face
    ;;  :inherit 'mode-line
    ;;  :background accent

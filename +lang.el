@@ -1,9 +1,9 @@
 ;;; ~/.doom.d/+lang.el -*- lexical-binding: t; -*-
 
 (require 'company)
-(after! company
-  (setq company-idle-delay 0.1
-        company-minimum-prefix-length 1))
+;; (after! company
+;;   (setq company-idle-delay 0.1
+;;         company-minimum-prefix-length 1))
 
 (set-company-backend! 'org-mode 'company-yasnippet)
 ;; (set-company-backend! 'python-mode 'company-yasnippet 'company-anaconda 'company-lsp)

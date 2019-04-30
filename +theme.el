@@ -35,8 +35,8 @@
 ;; Corrects (and improves) org-mode's native fontification.
 (doom-themes-org-config)
 
-;; (setq doom-font (font-spec :family "Iosevka Term" :size 35))
-(setq doom-font (font-spec :family "Iosevka Term" :size 20))
+(setq doom-font (font-spec :family "Iosevka Term" :size 35))
+;; (setq doom-font (font-spec :family "Iosevka Term" :size 20))
 
 (setq all-the-icons-scale-factor 1)
 
@@ -64,5 +64,5 @@
 
 ;; (set-face-foreground 'highlight-quoted-symbol "#83a598")
 
-;; (set-frame-parameter (selected-frame) 'alpha '(90))
-;; (add-to-list 'default-frame-alist '(alpha . (90)))
+(set-frame-parameter (selected-frame) 'alpha '(90))
+(add-to-list 'default-frame-alist '(alpha . (90)))
