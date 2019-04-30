@@ -28,9 +28,8 @@ determine the exact padding."
 
   ;; name        gui       256       16
   ((bg         '("#282828" nil       nil          ))
-   (bg-alt     '("#282828" nil       nil          ))
+   (bg-alt     (doom-lighten bg 0.05))
    (accent     '("#504945" "#504945" "brown"          ))
-   (solaire-bg  (doom-lighten bg 0.05) )
 
    (base0      '("#1B2229" "black"   "black"      ))
    (base1      '("#151617" "#101010" "brightblack"))
@@ -97,9 +96,9 @@ determine the exact padding."
 
   ;; --- extra faces ------------------------
   ((lazy-highlight :background yellow :foreground base0 :distant-foreground base0 :bold bold)
-   (cursor :background "white")
 
-   (hl-line :background solaire-bg)
+   (cursor :background "white")
+   (hl-line :background bg-alt)
 
    (indent-guide-face :foreground grey)
 
@@ -119,12 +118,11 @@ determine the exact padding."
 
    (doom-modeline-bar :background green)
    (doom-modeline-panel :background dark-green :foreground fg)
-
    (doom-modeline-project-dir :bold t :foreground cyan)
    (doom-modeline-buffer-path :inherit 'bold :foreground green)
    (doom-modeline-buffer-file :inherit 'bold :foreground fg)
-   (doom-modeline-buffer-modified :inherit 'bold :foreground olive)
-
+   (doom-modeline-buffer-modified :inherit 'bold :foreground yellow)
+   (doom-modeline-error :background bg)
    (doom-modeline-buffer-major-mode :foreground green :bold t)
    (doom-modeline-warning :foreground red :bold t)
    (doom-modeline-info :bold t :foreground orange)
@@ -135,7 +133,6 @@ determine the exact padding."
 
    ;; evil-snipe
    (evil-snipe-first-match-face :foreground "white" :background yellow)
-  ;; te te te te
    (evil-snipe-matches-face     :foreground yellow :bold t :underline t)
 
    ;; ediff
@@ -149,14 +146,17 @@ determine the exact padding."
    ;; helm
    (helm-swoop-target-line-face :foreground magenta :inverse-video t)
 
-   ;; ivy
+   ;; ivy/mini-buffer
    (ivy-current-match :background accent)
    (ivy-subdir :background nil :foreground cyan)
    (ivy-action :background nil :foreground cyan)
    (ivy-grep-line-number :background nil :foreground cyan)
-   (ivy-minibuffer-match-face-1 :background nil :foreground olive)
-   (ivy-minibuffer-match-face-2 :background nil :foreground olive)
-   (minibuffer-prompt :foreground olive)
+   (ivy-minibuffer-match-face-1 :background nil :foreground yellow)
+   (ivy-minibuffer-match-face-2 :background nil :foreground yellow)
+   (counsel-key-binding :foreground green)
+
+   (minibuffer-prompt :foreground green)
+   (solaire-hl-line-face :background accent)
 
    ;; neotree
    (neo-root-dir-face   :foreground green )
@@ -165,15 +165,14 @@ determine the exact padding."
    (doom-neotree-file-face :foreground fg)
    (doom-neotree-hidden-file-face :foreground fg-light)
    (doom-neotree-media-file-face :foreground fg-light)
-
    (neo-expand-btn-face :foreground magenta)
 
    ;; rainbow-delimiters
    (rainbow-delimiters-depth-1-face :foreground red)
-   (rainbow-delimiters-depth-2-face :foreground green)
-   (rainbow-delimiters-depth-3-face :foreground yellow)
-   (rainbow-delimiters-depth-4-face :foreground orange)
-   (rainbow-delimiters-depth-5-face :foreground cyan)
+   (rainbow-delimiters-depth-2-face :foreground yellow)
+   (rainbow-delimiters-depth-3-face :foreground green)
+   (rainbow-delimiters-depth-4-face :foreground red)
+   (rainbow-delimiters-depth-5-face :foreground yellow)
    (rainbow-delimiters-depth-6-face :foreground green)
    (rainbow-delimiters-depth-7-face :foreground red)
 
@@ -188,29 +187,8 @@ determine the exact padding."
    (company-tooltip-common-selection :foreground green)
    (company-tooltip-annotation :foreground cyan)
    (company-tooltip-annotation-selection :foreground cyan)
-
    (company-scrollbar-bg :background fg)
    (company-scrollbar-fg :background green)
-
-   ;; (solaire-mode-line-face
-   ;;  :background yellow)
-
-   ;; (solaire-mode-line-inactive-face
-   ;;  :background orange)
-
-   (solaire-default-face :background solaire-bg)
-   ;; (solaire-fringe-face :background yellow)
-
-   ;; (solaire-mode-line-face
-   ;;  :inherit 'mode-line
-   ;;  :background accent
-   ;;  :box (if -modeline-pad `(:line-width ,-modeline-pad :color ,modeline-bg-l)))
-   ;; (solaire-mode-line-inactive-face
-   ;;  :inherit 'mode-line-inactive
-   ;;  :background bg
-   ;;  :box (if -modeline-pad `(:line-width ,-modeline-pad :color ,modeline-bg-inactive-l)))
-
-   ;; (solaire-minibuffer-face :background (doom-darken bg 0.2))
 
    ;; --- major-mode faces -------------------
    ;; css-mode / scss-mode
@@ -239,9 +217,6 @@ determine the exact padding."
    (elscreen-tab-other-screen-face :background "#353a42" :foreground "#1e2022")
 
    (org-list-dt :foreground yellow))
-
-   ;; ;; elscreen
-
   ;; --- extra variables --------------------
   ;; ()
   )
