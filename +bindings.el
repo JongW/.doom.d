@@ -124,6 +124,9 @@ KEY must be given in `kbd' notation."
    :desc "Increase H Size"        :n  "="   (lambda! (evil-window-increase-width 10))
    :desc "Dercrease H Size"        :n  "-"   (lambda! (evil-window-decrease-width 10))
 
+   :desc "Increase V Size"        :n  ">"   (lambda! (evil-window-increase-height 10))
+   :desc "Dercrease V Size"        :n  "<"   (lambda! (evil-window-decrease-height 10))
+
    ;; Buffer management
    :n "[" #'previous-buffer
    :n "]" #'next-buffer

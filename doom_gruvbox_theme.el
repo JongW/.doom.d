@@ -11,11 +11,6 @@
   :group 'doom-gruvbox-theme
   :type 'boolean)
 
-(defcustom doom-gruvbox-warm nil
-  "If non-nil, neotree/modeline will be in warmer colors"
-  :group 'doom-gruvbox-theme
-  :type 'boolean)
-
 (defcustom doom-gruvbox-padded-modeline doom-themes-padded-modeline
   "If non-nil, adds a 4px padding to the mode-line. Can be an integer to
 determine the exact padding."
@@ -60,12 +55,12 @@ determine the exact padding."
    (dark-cyan  '("#458588" "#458588" "cyan"))
 
    ;; face categories
-   (highlight      orange)
+   (highlight      yellow)
    (vertical-bar   grey)
    (selection      accent)
    (builtin        orange)
-   (comments       (if doom-gruvbox-brighter-comments olive fg-light))
-   (doc-comments   (if doom-gruvbox-brighter-comments (doom-lighten olive 0.1) fg-light))
+   (comments       (if doom-gruvbox-brighter-comments magenta fg-light))
+   (doc-comments   (if doom-gruvbox-brighter-comments (doom-lighten magenta 0.2) fg-light))
    (constants      yellow)
    (functions      green)
    (keywords       red)
@@ -93,22 +88,20 @@ determine the exact padding."
 
    (org-quote `(,(doom-lighten (car bg) 0.05) "#1f1f1f")))
 
-
   ;; --- extra faces ------------------------
-  ((lazy-highlight :background yellow :foreground base0 :distant-foreground base0 :bold bold)
-
+(
+   ;;;;;;;; Editor ;;;;;;;;
    (cursor :background "white")
    (hl-line :background bg-alt)
-
-   (indent-guide-face :foreground grey)
-
    ((line-number-current-line &override) :background grey :foreground "white" :bold t)
    ((line-number &override) :foreground grey)
-   ((show-paren-match &override) :foreground nil :background fg-alt :bold t)
-   ((show-paren-mismatch &override) :foreground nil :background "red")
-   (button :foreground green :underline t :bold t)
 
-  ;; doom modeline
+   ;; Vimish-fold
+   ((vimish-fold-overlay &override) :inherit 'font-lock-comment-face :background accent :weight 'light)
+   ((vimish-fold-mouse-face &override) :foreground "white" :background yellow :weight 'light)
+   ((vimish-fold-fringe &override) :foreground magenta :background magenta)
+
+   ;;;;;;;; Doom-modeline ;;;;;;;;
    (mode-line
     :background accent :foreground fg-light
     :box (if -modeline-pad `(:line-width ,-modeline-pad :color base3)))
@@ -117,24 +110,114 @@ determine the exact padding."
     :background bg :foreground base4
     :box (if -modeline-pad `(:line-width ,-modeline-pad :color base2)))
 
-   (doom-modeline-bar :background yellow)
-   (doom-modeline-panel :background dark-green :foreground fg)
+   ;; File-name
    (doom-modeline-project-dir :bold t :foreground cyan)
    (doom-modeline-buffer-path :inherit 'bold :foreground green)
    (doom-modeline-buffer-file :inherit 'bold :foreground fg)
    (doom-modeline-buffer-modified :inherit 'bold :foreground yellow)
+   ;; Misc
    (doom-modeline-error :background bg)
    (doom-modeline-buffer-major-mode :foreground green :bold t)
    (doom-modeline-warning :foreground red :bold t)
    (doom-modeline-info :bold t :foreground cyan)
+   (doom-modeline-bar :background dark-green)
+   (doom-modeline-panel :background dark-green :foreground fg)
 
-   ;; Search
+   ;;;;;;;; Search ;;;;;;;;
+   ;; /find
    (isearch :foreground base0 :background yellow)
    (evil-search-highlight-persist-highlight-face :background orange)
+   (lazy-highlight :background yellow :foreground base0 :distant-foreground base0 :bold bold)
+   (evil-ex-substitute-replacement :foreground yellow :inherit 'evil-ex-substitute-matches)
 
    ;; evil-snipe
    (evil-snipe-first-match-face :foreground "white" :background yellow)
    (evil-snipe-matches-face     :foreground yellow :bold t :underline t)
+
+   ;;;;;;;; Mini-buffers ;;;;;;;;
+   (minibuffer-prompt :foreground green)
+   (solaire-hl-line-face :background accent)
+
+   ;; ivy
+   (ivy-current-match :background accent)
+   (ivy-subdir :background nil :foreground cyan)
+   (ivy-action :background nil :foreground cyan)
+   (ivy-grep-line-number :background nil :foreground cyan)
+   (ivy-minibuffer-match-face-1 :background nil :foreground yellow)
+   (ivy-minibuffer-match-face-2 :background nil :foreground yellow)
+   (ivy-minibuffer-match-highlight :foreground olive)
+   (counsel-key-binding :foreground green)
+
+   ;; neotree
+   (neo-root-dir-face   :foreground green )
+   (doom-neotree-dir-face :foreground cyan)
+   (neo-dir-link-face   :foreground cyan)
+   (doom-neotree-file-face :foreground fg)
+   (doom-neotree-hidden-file-face :foreground fg-light)
+   (doom-neotree-media-file-face :foreground fg-light)
+   (neo-expand-btn-face :foreground magenta)
+
+   ;; dired
+   (dired-directory :foreground cyan)
+   (dired-marked :foreground yellow)
+   (dired-symlink :foreground green)
+
+   ;; term
+   (term-color-blue :background cyan :foreground cyan)
+   (term-color-cyan :background green :foreground green)
+   (term-color-green :background olive :foreground olive)
+
+   ;;;;;;;; Brackets ;;;;;;;;
+   ;; Rainbow-delimiters
+   (rainbow-delimiters-depth-1-face :foreground red)
+   (rainbow-delimiters-depth-2-face :foreground yellow)
+   (rainbow-delimiters-depth-3-face :foreground green)
+   (rainbow-delimiters-depth-4-face :foreground red)
+   (rainbow-delimiters-depth-5-face :foreground yellow)
+   (rainbow-delimiters-depth-6-face :foreground green)
+   (rainbow-delimiters-depth-7-face :foreground red)
+   ;; Bracket pairing
+   ((show-paren-match &override) :foreground nil :background fg-alt :bold t)
+   ((show-paren-mismatch &override) :foreground nil :background "red")
+
+   ;;;;;;;; which-key ;;;;;;;;
+   (which-func :foreground green)
+   (which-key-command-description-face :foreground fg)
+   (which-key-group-description-face :foreground fg-light)
+   (which-key-local-map-description-face :foreground cyan)
+
+   ;;;;;;;; Company ;;;;;;;;
+   (company-preview-common :foreground green)
+   (company-tooltip-common :foreground green)
+   (company-tooltip-common-selection :foreground green)
+   (company-tooltip-annotation :foreground cyan)
+   (company-tooltip-annotation-selection :foreground cyan)
+   (company-scrollbar-bg :background fg)
+   (company-scrollbar-fg :background green)
+   (company-tooltip-selection :background accent)
+   (company-tooltip-mouse :background accent :foreground nil)
+
+   ;;;;;;;; Magit ;;;;;;;;
+   (magit-branch-current :foreground yellow)
+   (magit-section-heading :foreground cyan)
+   (magit-filename :foreground olive)
+
+   (magit-diff-hunk-heading-highlight :background yellow)
+   ;; (magit-diff-conflict-heading :background yellow)
+
+   ;; Blame
+   (magit-blame-heading :background accent :foreground fg)
+   (magit-blame-date :foreground fg-alt)
+
+   ;;;;;;;; Misc ;;;;;;;;
+   (+workspace-tab-selected-face :background dark-green :foreground "white")
+
+   ;; Undo tree
+   (undo-tree-visualizer-active-branch-face :foreground green)
+   (undo-tree-visualizer-current-face :foreground yellow)
+
+   ;; General UI
+   (button :foreground green :underline t :bold t)
 
    ;; ediff
    (ediff-fine-diff-A :background (doom-blend red bg 0.3) :weight 'bold)
@@ -147,60 +230,16 @@ determine the exact padding."
    ;; helm
    (helm-swoop-target-line-face :foreground magenta :inverse-video t)
 
-   ;; ivy/mini-buffer
-   (ivy-current-match :background accent)
-   (ivy-subdir :background nil :foreground cyan)
-   (ivy-action :background nil :foreground cyan)
-   (ivy-grep-line-number :background nil :foreground cyan)
-   (ivy-minibuffer-match-face-1 :background nil :foreground yellow)
-   (ivy-minibuffer-match-face-2 :background nil :foreground yellow)
-   (counsel-key-binding :foreground green)
-
-   (minibuffer-prompt :foreground green)
-   (solaire-hl-line-face :background accent)
-
-   ;; neotree
-   (neo-root-dir-face   :foreground green )
-   (doom-neotree-dir-face :foreground cyan)
-   (neo-dir-link-face   :foreground cyan)
-   (doom-neotree-file-face :foreground fg)
-   (doom-neotree-hidden-file-face :foreground fg-light)
-   (doom-neotree-media-file-face :foreground fg-light)
-   (neo-expand-btn-face :foreground magenta)
-
-   ;; rainbow-delimiters
-   (rainbow-delimiters-depth-1-face :foreground red)
-   (rainbow-delimiters-depth-2-face :foreground yellow)
-   (rainbow-delimiters-depth-3-face :foreground green)
-   (rainbow-delimiters-depth-4-face :foreground red)
-   (rainbow-delimiters-depth-5-face :foreground yellow)
-   (rainbow-delimiters-depth-6-face :foreground green)
-   (rainbow-delimiters-depth-7-face :foreground red)
-
-   ;; which-key
-   (which-func :foreground green)
-   (which-key-command-description-face :foreground fg)
-   (which-key-group-description-face :foreground fg-light)
-
-  ;; company
-   (company-preview-common :foreground green)
-   (company-tooltip-common :foreground green)
-   (company-tooltip-common-selection :foreground green)
-   (company-tooltip-annotation :foreground cyan)
-   (company-tooltip-annotation-selection :foreground cyan)
-   (company-scrollbar-bg :background fg)
-   (company-scrollbar-fg :background green)
-
-   ;; --- major-mode faces -------------------
+   ;;;;;;;; Major mode faces ;;;;;;;;
    ;; css-mode / scss-mode
    (css-proprietary-property :foreground keywords)
 
-  ;; TODO later
    ;; markdown-mode
-   (markdown-blockquote-face :inherit 'italic :foreground dark-blue)
-   (markdown-list-face :foreground magenta)
-   (markdown-pre-face  :foreground cyan)
-   (markdown-link-face :inherit 'bold :foreground blue)
+   (markdown-blockquote-face :inherit 'italic :foreground cyan)
+   (markdown-list-face :foreground red)
+   (markdown-url-face :foreground red)
+   (markdown-pre-face  :foreground green)
+   (markdown-link-face :inherit 'bold :foreground cyan)
    (markdown-code-face :background (doom-lighten base2 0.045))
 
    ;; org-mode
@@ -214,10 +253,8 @@ determine the exact padding."
    (org-tag :foreground yellow :bold nil)
    (org-quote :inherit 'italic :foreground base7 :background org-quote)
    (org-todo :foreground yellow :bold 'inherit)
-
-   (elscreen-tab-other-screen-face :background "#353a42" :foreground "#1e2022")
-
    (org-list-dt :foreground yellow))
+
   ;; --- extra variables --------------------
   ;; ()
   )
