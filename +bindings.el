@@ -1,5 +1,4 @@
 ;;; ~/.doom.d/+bindings.el -*- lexical-binding: t; -*-
-;;;
 
 ;; Custom functions
 (defun my-ivy-switch-buffer (regex-list)
@@ -219,7 +218,10 @@ KEY must be given in `kbd' notation."
 
  (:after magit
    :map magit-blame-mode-map
-   :n "q" #'magit-blame-quit)
+   :n "q" #'magit-blame-quit
+  
+   :map with-editor-mode-map
+   :n "q" #'with-editor-finish)
 
  ;; neotree
  (:after neotree

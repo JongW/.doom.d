@@ -9,4 +9,5 @@
     (remove-text-properties begin end '(read-only t))
     (set-buffer-modified-p modified)))
 
+(require 'vimish-fold)
 (vimish-fold-global-mode 1)
