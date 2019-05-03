@@ -202,8 +202,9 @@ determine the exact padding."
    (magit-section-heading :foreground cyan)
    (magit-filename :foreground olive)
 
-   (magit-diff-hunk-heading-highlight :background yellow)
-   ;; (magit-diff-conflict-heading :background yellow)
+   (magit-diff-hunk-heading-highlight :background yellow :foreground "black")
+   (magit-diff-hunk-heading :background (doom-darken yellow 0.5) :foreground base3)
+   (magit-diff-conflict-heading :background yellow)
 
    ;; Blame
    (magit-blame-heading :background accent :foreground fg)
