@@ -121,12 +121,11 @@ KEY must be given in `kbd' notation."
    :desc "Horizonal Split"        :n  "s"   #'split-window-below
    :desc "Vertical Split"         :n  "v"   #'evil-window-vsplit
      
-   :desc "Increase H Size"        :n  "="   (lambda! (evil-window-increase-width 10))
-   :desc "Dercrease H Size"        :n  "-"   (lambda! (evil-window-decrease-width 10))
+   :desc "Increase H Size"        :n  "<right>"   (lambda! (evil-window-increase-width 10))
+   :desc "Dercrease H Size"        :n  "<left>"   (lambda! (evil-window-decrease-width 10))
 
-   :desc "Increase V Size"        :n  ">"   (lambda! (evil-window-increase-height 10))
-
-   :desc "Dercrease V Size"        :n  "<"   (lambda! (evil-window-decrease-height 10))
+   :desc "Increase V Size"        :n  "<up>"   (lambda! (evil-window-increase-height 10))
+   :desc "Dercrease V Size"        :n  "<down>"   (lambda! (evil-window-decrease-height 10))
 
    ;; Buffer management
    :n "[" #'previous-buffer
