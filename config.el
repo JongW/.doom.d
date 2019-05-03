@@ -14,6 +14,5 @@
 (load! "+theme.el")
 (load! "+lang.el")
 (load! "+misc.el")
-
 (load! "+clipboard.el")
 (load! "+bindings.el")

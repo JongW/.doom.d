@@ -26,10 +26,27 @@
 (setq all-the-icons-scale-factor 1)
 
 (setq display-line-numbers-type 'relative)
-
 (set-frame-parameter (selected-frame) 'alpha '(90))
 (add-to-list 'default-frame-alist '(alpha . (90)))
 
+;; (defun highlight-selected-window ()
+;;   "Highlight selected window with a different background color."
+;;   (walk-windows (lambda (w)
+;;                   (unless (eq w (selected-window))
+;;                     (with-current-buffer (window-buffer w)
+;;                       (buffer-face-set '(:background "#1e1e1e"))))))
+;;   (buffer-face-set 'solaire-default-face))
+;; (add-hook 'buffer-list-update-hook 'highlight-selected-window)
+
+(defun highlight-selected-window ()
+  "Highlight selected window with a different background color."
+  (walk-windows (lambda (w)
+                  (unless (eq w (selected-window))
+                    (with-current-buffer (window-buffer w)
+                      (buffer-face-set '(:background "#1e1e1e"))))))
+  (buffer-face-set 'solaire-default-face))
+(add-hook 'buffer-list-update-hook 'highlight-selected-window)
+ 
 (setq  org-bullets-bullet-list '(
 ""
 ""
