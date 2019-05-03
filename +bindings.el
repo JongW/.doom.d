@@ -61,20 +61,10 @@ KEY must be given in `kbd' notation."
 
  ;; --- Global keybindings ---------------------------
  ;; A little sandbox to run code in
- :gnvime "M-;" #'eval-expression
  :gnvime "M-:" #'doom/open-scratch-buffer
 
  :i "C-SPC"    #'+company/complete
  :i "C-s" 'yas-complete-or-company
- :i "C-t" 'company-yasnippet
-
- ;; Smart tab
- ;; :i "C-SPC" (general-predicate-dispatch nil ; fall back to nearest keymap
- ;;              (and (featurep! :feature snippets)
- ;;                   (bound-and-true-p yas-minor-mode)
- ;;                   (yas-maybe-expand-abbrev-key-filter 'yas-expand))
- ;;              'yas-expand
- ;;              #'company/complete)
 
  :n [tab] (general-predicate-dispatch nil
             (and (featurep! :editor fold)
@@ -82,6 +72,7 @@ KEY must be given in `kbd' notation."
             '+fold/toggle
             (fboundp 'evilmi-jump-items)
             'evilmi-jump-items)
+
  :v [tab] (general-predicate-dispatch nil
             (and (bound-and-true-p yas-minor-mode)
                  (or (eq evil-visual-selection 'line)
@@ -129,6 +120,9 @@ KEY must be given in `kbd' notation."
    :n  "l"   #'evil-window-right
    :desc "Horizonal Split"        :n  "s"   #'split-window-below
    :desc "Vertical Split"         :n  "v"   #'evil-window-vsplit
+     
+   :desc "Increase H Size"        :n  "="   (lambda! (evil-window-increase-width 10))
+   :desc "Dercrease H Size"        :n  "-"   (lambda! (evil-window-decrease-width 10))
 
    ;; Buffer management
    :n "[" #'previous-buffer
@@ -138,6 +132,7 @@ KEY must be given in `kbd' notation."
    :n "D" #'doom/kill-other-buffers
 
    :n "m" #'doom/window-maximize-buffer
+   :n "n" #'+popup/toggle
 
    :n "b" #'my-also-ignore-star-buffers
 
@@ -155,6 +150,8 @@ KEY must be given in `kbd' notation."
    :n "c" #'evil-commentary
 
    :gnvime "x" #'execute-extended-command
+
+   :gnvime ";" #'eval-expression
 
    :desc "Terminal"            :n  "t" #'+term/open-popup
    :desc "Terminal in project" :n  "T" #'+term/open-popup-in-project

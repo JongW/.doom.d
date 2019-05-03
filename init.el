@@ -25,7 +25,7 @@
        evil-goggles      ; display visual hints when editing in evil
        ;;fill-column       ; a `fill-column' indicator
        hl-todo           ; highlight TODO/FIXME/NOTE tags
-       ;; indent-guides     ; highlighted indent columns
+       indent-guides     ; highlighted indent columns
        modeline          ; snazzy, Atom-inspired modeline, plus API
        nav-flash         ; blink the current line after jumping
        neotree           ; a project drawer, like NERDTree for vim
@@ -42,7 +42,8 @@
 
        :editor
        fold              ; (nigh) universal code folding
-       (format +onsave)  ; automated prettiness
+       ;; (format +onsave)  ; automated prettiness
+       format
        ;;lispy             ; vim for lisp, for people who dont like vim
        ;; multiple-cursors  ; editing in many places at once
        ;;parinfer          ; turn lisp into python, sort of

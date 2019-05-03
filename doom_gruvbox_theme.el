@@ -106,6 +106,7 @@ determine the exact padding."
    ((line-number &override) :foreground grey)
    ((show-paren-match &override) :foreground nil :background fg-alt :bold t)
    ((show-paren-mismatch &override) :foreground nil :background "red")
+   (button :foreground green :underline t :bold t)
 
   ;; doom modeline
    (mode-line
@@ -116,7 +117,7 @@ determine the exact padding."
     :background bg :foreground base4
     :box (if -modeline-pad `(:line-width ,-modeline-pad :color base2)))
 
-   (doom-modeline-bar :background green)
+   (doom-modeline-bar :background yellow)
    (doom-modeline-panel :background dark-green :foreground fg)
    (doom-modeline-project-dir :bold t :foreground cyan)
    (doom-modeline-buffer-path :inherit 'bold :foreground green)
@@ -125,7 +126,7 @@ determine the exact padding."
    (doom-modeline-error :background bg)
    (doom-modeline-buffer-major-mode :foreground green :bold t)
    (doom-modeline-warning :foreground red :bold t)
-   (doom-modeline-info :bold t :foreground orange)
+   (doom-modeline-info :bold t :foreground cyan)
 
    ;; Search
    (isearch :foreground base0 :background yellow)
