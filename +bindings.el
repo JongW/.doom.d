@@ -99,10 +99,12 @@ KEY must be given in `kbd' notation."
  ;; Vim key bindings
  :n "o" 'vi-open-line-below
  :n "O" 'vi-open-line-above
- :v  "<"     #'+evil/visual-dedent  ; vnoremap < <gv
- :v  ">"     #'+evil/visual-indent  ; vnoremap > >gv
+ :v  "<" #'+evil/visual-dedent  ; vnoremap < <gv
+ :v  ">" #'+evil/visual-indent  ; vnoremap > >gv
 
- :nvmo "0" #'evil-first-non-blank
+ ;; Dont use this, bugs evil-commentary
+ ;; :nvm "0" #'evil-first-non-blank
+
  :nvmo "H" #'evil-first-non-blank
  :nvmo "L" #'evil-end-of-line
 
@@ -117,14 +119,14 @@ KEY must be given in `kbd' notation."
    :n  "j"   #'evil-window-down
    :n  "k"   #'evil-window-up
    :n  "l"   #'evil-window-right
-   :desc "Horizonal Split"        :n  "s"   #'split-window-below
-   :desc "Vertical Split"         :n  "v"   #'evil-window-vsplit
+   :desc "Horizonal Split"  :n  "s"   #'split-window-below
+   :desc "Vertical Split"   :n  "v"   #'evil-window-vsplit
      
-   :desc "Increase H Size"        :n  "<right>"   (lambda! (evil-window-increase-width 10))
-   :desc "Dercrease H Size"        :n  "<left>"   (lambda! (evil-window-decrease-width 10))
+   :desc "Increase H Size"  :n  "<right>"   (lambda! (evil-window-increase-width 10))
+   :desc "Dercrease H Size" :n  "<left>"   (lambda! (evil-window-decrease-width 10))
 
-   :desc "Increase V Size"        :n  "<up>"   (lambda! (evil-window-increase-height 10))
-   :desc "Dercrease V Size"        :n  "<down>"   (lambda! (evil-window-decrease-height 10))
+   :desc "Increase V Size"  :n  "<up>"   (lambda! (evil-window-increase-height 10))
+   :desc "Dercrease V Size" :n  "<down>"   (lambda! (evil-window-decrease-height 10))
 
    ;; Buffer management
    :n "[" #'previous-buffer
@@ -155,22 +157,22 @@ KEY must be given in `kbd' notation."
 
    :gnvime ";" #'eval-expression
 
-   :desc "Terminal"            :n  "t" #'+term/open-popup
-   :desc "Terminal in project" :n  "T" #'+term/open-popup-in-project
+   :desc "Terminal"                   :n  "t" #'+term/open-popup
+   :desc "Terminal in project"        :n  "T" #'+term/open-popup-in-project
 
-   :desc "Ivy open ALL buffers"  :n  "B"   #'ivy-switch-buffer
-   :desc "Silver searcher"      :n  "f"   #'counsel-projectile-ag
-   :desc "Find project"           :n  "."   #'projectile-switch-project
+   :desc "Ivy open ALL buffers"       :n  "B"   #'ivy-switch-buffer
+   :desc "Silver searcher"            :n  "f"   #'counsel-projectile-ag
+   :desc "Find project"               :n  "."   #'projectile-switch-project
 
    (:prefix("g" . "git")
-     :desc "Git status"        :n  "s" #'magit-status
-     :desc "Git blame"         :n  "b" #'magit-blame
-     :desc "Git timemachine branch" :n  "B" #'git-timemachine-switch-branch
-     :desc "Git time machine"  :n  "t" #'git-timemachine-toggle
-     :desc "Git revert hunk"   :n  "r" #'git-gutter:revert-hunk
-     :desc "List gists"        :n  "g" #'+gist:list
-     :desc "Next hunk"         :nv "]" #'git-gutter:next-hunk
-     :desc "Previous hunk"     :nv "[" #'git-gutter:previous-hunk)
+     :desc "Git status"               :n  "s" #'magit-status
+     :desc "Git blame"                :n  "b" #'magit-blame
+     :desc "Git timemachine branch"   :n  "B" #'git-timemachine-switch-branch
+     :desc "Git time machine"         :n  "t" #'git-timemachine-toggle
+     :desc "Git revert hunk"          :n  "r" #'git-gutter:revert-hunk
+     :desc "List gists"               :n  "g" #'+gist:list
+     :desc "Next hunk"                :nv "]" #'git-gutter:next-hunk
+     :desc "Previous hunk"            :nv "[" #'git-gutter:previous-hunk)
 
    (:prefix("TAB" . "workspace")
      :desc "Display tab bar"          :n "TAB" #'+workspace/display
@@ -198,14 +200,14 @@ KEY must be given in `kbd' notation."
      :desc "Switch to 9th workspace"  :n "9"   (λ! (+workspace/switch-to 8)))
 
    (:prefix("z" . "Extra commands")
-     :desc "Private config" :n "p" #'doom/open-private-config
-     :desc "New window"  :n "n" #'make-frame
-     :desc "Sudo this file" :n "s" #'doom/sudo-this-file
-     :desc "Restart and restore"  :n "r" #'doom/restart-and-restore
-     :desc "Insert snippets"  :n "s" #'yas-insert-snippet
-     :desc "Reload theme"  :n "l" #'doom/reload-theme
-     :desc "Neotree dir"  :n "e" #'neotree-dir
-     :desc "Format code" :n "t" #'+format/buffer)
+     :desc "Private config"           :n "p" #'doom/open-private-config
+     :desc "New window"               :n "n" #'make-frame
+     :desc "Sudo this file"           :n "s" #'doom/sudo-this-file
+     :desc "Restart and restore"      :n "r" #'doom/restart-and-restore
+     :desc "Insert snippets"          :n "s" #'yas-insert-snippet
+     :desc "Reload theme"             :n "l" #'doom/reload-theme
+     :desc "Neotree dir"              :n "e" #'neotree-dir
+     :desc "Format code"              :n "t" #'+format/buffer)
 
    )
 
@@ -268,16 +270,18 @@ KEY must be given in `kbd' notation."
 
  (:after org
    :map org-mode-map
-   :n "M-h" #'org-metaleft
-   :n "M-l" #'org-metaright
-   :n "M-k" #'org-metaup
-   :n "M-j" #'org-metadown
+   :n "M-h"       #'org-metaleft
+   :n "M-l"       #'org-metaright
+   :n "M-k"       #'org-metaup
+   :n "M-j"       #'org-metadown
+
+   :nv "x"        #'evil-x-as-cut
 
    ;; Tidy up whick-key and replace commands
    "C-c C-d" nil
-   "C-c d" #'org-deadline
+   "C-c d"        #'org-deadline
    "C-c C-t" nil
-   "C-c t" #'org-todo
+   "C-c t"        #'org-todo
    "C-c C-n" nil
 
    ;; Just tidy up commands
@@ -286,15 +290,24 @@ KEY must be given in `kbd' notation."
    "C-c C->" nil ;; org-outline-promote
    "C-c C-<" nil ;; org-outline-demote
 
-   :n "\{" #'org-next-visible-heading
-   :n "\}" #'org-previous-visible-heading
+   :ni "C-j"      #'org-next-visible-heading
+   :ni "C-k"      #'org-previous-visible-heading
 
-   :n "M-<left>" #'org-promote-subtree
+   :ni "C-l h"    #'org-next-visible-heading
+   :ni "C-h h"    #'org-previous-visible-heading
+
+   :ni "C-l l"    #'org-next-link
+   :ni "C-h l"    #'org-previous-link
+
+   :ni "C-l b"    #'org-next-block
+   :ni "C-h b"    #'org-previous-block
+
+   :n "M-<left>"  #'org-promote-subtree
    :n "M-<right>" #'org-demote-subtree
 
    :map evil-org-mode-map
-   :n "o" #'vi-open-line-below
-   :n "O" #'vi-open-line-above
+   :n "o"         #'vi-open-line-below
+   :n "O"         #'vi-open-line-above
    )
  )
 

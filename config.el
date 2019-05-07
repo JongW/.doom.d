@@ -10,9 +10,14 @@
       (set-process-query-on-exit-flag proc nil))))
 
 (add-hook 'term-mode-hook 'set-no-process-query-on-exit)
+(add-hook 'org-mode-hook '+org-pretty-mode)
 
-(load! "+theme.el")
+(require 'smart-tabs-mode)
+(after! counsel
+  (setq counsel-evil-registers-height 300))
+
 (load! "+lang.el")
+(load! "+theme.el")
 (load! "+misc.el")
 (load! "+clipboard.el")
 (load! "+bindings.el")

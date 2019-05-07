@@ -15,6 +15,15 @@
 (after! web-mode
   (setq web-mode-enable-engine-detection t))
 
+(defvar python-dotbrackets (make-face 'python-dotbrackets))
+(set-face-attribute 'python-dotbrackets nil :foreground "#83a598")
+
+(defvar python-keywords (make-face 'python-keywords))
+(set-face-attribute 'python-keywords nil :foreground "blue")
+
+
+(font-lock-add-keywords 'python-mode '(("\\<\\([a-zA-Z_]*\\) *("(1 'python-dotbrackets))) t)
+
 (def-project-mode! +web-django-mode
   :modes (web-mode html-mode anaconda-mode css-mode js-mode)
   :files (or "bin/django-admin" "bin/django-admin.py")

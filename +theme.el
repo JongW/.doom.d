@@ -20,8 +20,8 @@
 ;; Corrects (and improves) org-mode's native fontification.
 (doom-themes-org-config)
 
-(setq doom-font (font-spec :family "Iosevka Term" :size 35))
-;; (setq doom-font (font-spec :family "Iosevka Term" :size 20))
+;; (setq doom-font (font-spec :family "Iosevka Term" :size 35))
+(setq doom-font (font-spec :family "Iosevka Term" :size 20))
 
 (setq all-the-icons-scale-factor 1)
 
@@ -35,17 +35,22 @@
 ;;                   (unless (eq w (selected-window))
 ;;                     (with-current-buffer (window-buffer w)
 ;;                       (buffer-face-set '(:background "#1e1e1e"))))))
-;;   (buffer-face-set 'solaire-default-face))
+;;                       ;; (buffer-face-set '(:background "#272727"))))))
+;;                       ;; (buffer-face-set '(:background "#323232"))))))
+;;   (buffer-face-set 'solaire-default-face)
+;;  ;; No idea but this fucks my setup on arch need to turn cursor white everytime
+;;   (set-face-background 'cursor "white"))
 ;; (add-hook 'buffer-list-update-hook 'highlight-selected-window)
 
-(defun highlight-selected-window ()
-  "Highlight selected window with a different background color."
-  (walk-windows (lambda (w)
-                  (unless (eq w (selected-window))
-                    (with-current-buffer (window-buffer w)
-                      (buffer-face-set '(:background "#1e1e1e"))))))
-  (buffer-face-set 'solaire-default-face))
-(add-hook 'buffer-list-update-hook 'highlight-selected-window)
+;; (defun highlight-selected-window ()
+;;   "Highlight selected window with a different background color."
+;;   (walk-windows (lambda (w)
+;;                   (unless (eq w (selected-window))
+;;                     (with-current-buffer (window-buffer w)
+;;                       (buffer-face-set '(:background "#1e1e1e"))))))
+;;   (buffer-face-set 'default))
+
+;(add-hook 'buffer-list-update-hook 'highlight-selected-window)
  
 (setq  org-bullets-bullet-list '(
 ""
