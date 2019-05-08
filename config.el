@@ -12,7 +12,6 @@
 (add-hook 'term-mode-hook 'set-no-process-query-on-exit)
 (add-hook 'org-mode-hook '+org-pretty-mode)
 
-(require 'smart-tabs-mode)
 (after! counsel
   (setq counsel-evil-registers-height 300))
 

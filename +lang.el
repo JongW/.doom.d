@@ -23,6 +23,7 @@
 
 
 (font-lock-add-keywords 'python-mode '(("\\<\\([a-zA-Z_]*\\) *("(1 'python-dotbrackets))) t)
+(font-lock-add-keywords 'python-mode '(("\s*def.*\(\\([a-zA-Z_]*\\)\)"(1 'python-keywords))) t)
 
 (def-project-mode! +web-django-mode
   :modes (web-mode html-mode anaconda-mode css-mode js-mode)
