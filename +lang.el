@@ -19,11 +19,29 @@
 (set-face-attribute 'python-dotbrackets nil :foreground "#83a598")
 
 (defvar python-keywords (make-face 'python-keywords))
-(set-face-attribute 'python-keywords nil :foreground "blue")
+(set-face-attribute 'python-keywords nil :foreground "#fe8019")
 
+(defvar python-fg (make-face 'python-fg))
+(set-face-attribute 'python-fg nil :foreground "#ebdbb2")
 
 (font-lock-add-keywords 'python-mode '(("\\<\\([a-zA-Z_]*\\) *("(1 'python-dotbrackets))) t)
-(font-lock-add-keywords 'python-mode '(("\s*def.*\(\\([a-zA-Z_]*\\)\)"(1 'python-keywords))) t)
+;; (font-lock-add-keywords 'python-mode '(("\s*def\s\\{1\\}[a-zA-Z_]*\(\\(.*\\)\):"(1 'python-keywords))) t)
+
+;; imma mother fucking hacker
+(font-lock-add-keywords 'python-mode '(("\s*def\s\\{1\\}[a-zA-Z_]*\(\\([.=a-zA-Z_\s]*\\),*.*\):" 1 'python-keywords)
+                                       ("\s*def\s\\{1\\}[a-zA-Z_]*\(\\([.=a-zA-Z_\s]*\\),*\\([.=a-zA-Z_\s]*\\),*.*\):" 2 'python-keywords)
+                                       ("\s*def\s\\{1\\}[a-zA-Z_]*\(\\([.=a-zA-Z_\s]*\\),*\\([.=a-zA-Z_\s]*\\),*\\([.=a-zA-Z_\s]*\\),*.*\):" 3 'python-keywords)
+                                       ("\s*def\s\\{1\\}[a-zA-Z_]*\(\\([.=a-zA-Z_\s]*\\),*\\([.=a-zA-Z_\s]*\\),*\\([.=a-zA-Z_\s]*\\),*\\([.=a-zA-Z_\s]*\\),*.*\):" 4 'python-keywords)
+                                       ("\s*def\s\\{1\\}[a-zA-Z_]*\(\\([.=a-zA-Z_\s]*\\),*\\([.=a-zA-Z_\s]*\\),*\\([.=a-zA-Z_\s]*\\),*\\([.=a-zA-Z_\s]*\\),*\\([.=a-zA-Z_\s]*\\),*.*\):" 5 'python-keywords)
+                                       ("\s*def\s\\{1\\}[a-zA-Z_]*\(\\([.=a-zA-Z_\s]*\\),*\\([.=a-zA-Z_\s]*\\),*\\([.=a-zA-Z_\s]*\\),*\\([.=a-zA-Z_\s]*\\),*\\([.=a-zA-Z_\s]*\\),*\\([.=a-zA-Z_\s]*\\),*.*\):" 6 'python-keywords)
+                                       ("\s*class\s\\{1\\}[a-zA-Z_]*\(\\([.=a-zA-Z_\s]*\\),*\\([.=a-zA-Z_\s]*\\),*\\([.=a-zA-Z_\s]*\\),*\\([.=a-zA-Z_\s]*\\),*\\([.=a-zA-Z_\s]*\\),*\\([.=a-zA-Z_\s]*\\),*\\([.=a-zA-Z_\s]*\\),*.*\):" 7 'python-keywords)
+                                       ("\s*class\s\\{1\\}[a-zA-Z_]*\(\\([.=a-zA-Z_\s]*\\),*.*\):" 1 'python-keywords)
+                                       ("\s*class\s\\{1\\}[a-zA-Z_]*\(\\([.=a-zA-Z_\s]*\\),*\\([.=a-zA-Z_\s]*\\),*.*\):" 2 'python-keywords)
+                                       ("\s*class\s\\{1\\}[a-zA-Z_]*\(\\([.=a-zA-Z_\s]*\\),*\\([.=a-zA-Z_\s]*\\),*\\([.=a-zA-Z_\s]*\\),*.*\):" 3 'python-keywords)
+                                       ("\s*class\s\\{1\\}[a-zA-Z_]*\(\\([.=a-zA-Z_\s]*\\),*\\([.=a-zA-Z_\s]*\\),*\\([.=a-zA-Z_\s]*\\),*\\([.=a-zA-Z_\s]*\\),*.*\):" 4 'python-keywords)
+                                       ("\s*class\s\\{1\\}[a-zA-Z_]*\(\\([.=a-zA-Z_\s]*\\),*\\([.=a-zA-Z_\s]*\\),*\\([.=a-zA-Z_\s]*\\),*\\([.=a-zA-Z_\s]*\\),*\\([.=a-zA-Z_\s]*\\),*.*\):" 5 'python-keywords)
+                                       ("\s*class\s\\{1\\}[a-zA-Z_]*\(\\([.=a-zA-Z_\s]*\\),*\\([.=a-zA-Z_\s]*\\),*\\([.=a-zA-Z_\s]*\\),*\\([.=a-zA-Z_\s]*\\),*\\([.=a-zA-Z_\s]*\\),*\\([.=a-zA-Z_\s]*\\),*.*\):" 6 'python-keywords)
+                                       ("\s*class\s\\{1\\}[a-zA-Z_]*\(\\([.=a-zA-Z_\s]*\\),*\\([.=a-zA-Z_\s]*\\),*\\([.=a-zA-Z_\s]*\\),*\\([.=a-zA-Z_\s]*\\),*\\([.=a-zA-Z_\s]*\\),*\\([.=a-zA-Z_\s]*\\),*\\([.=a-zA-Z_\s]*\\),*.*\):" 7 'python-keywords)) t)
 
 (def-project-mode! +web-django-mode
   :modes (web-mode html-mode anaconda-mode css-mode js-mode)
