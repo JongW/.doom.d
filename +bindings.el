@@ -207,7 +207,10 @@ KEY must be given in `kbd' notation."
      :desc "Insert snippets"          :n "s" #'yas-insert-snippet
      :desc "Reload theme"             :n "l" #'doom/reload-theme
      :desc "Neotree dir"              :n "e" #'neotree-dir
-     :desc "Format code"              :n "t" #'+format/buffer)
+     :desc "Format code"              :n "t" #'+format/buffer
+     (:after lsp
+       :map lsp-mode-map
+       :n "t" #'lsp-format-buffer))
 
    )
 
