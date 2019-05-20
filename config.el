@@ -1,5 +1,4 @@
 ;;; ~/.doom.d/config.el -*- lexical-binding: t; -*-
-;; Place your private configuration here
 
 (use-package key-chord
   :config
@@ -11,14 +10,15 @@
   (setq company-idle-delay 0.3
         company-minimum-prefix-length 1))
 
-;; (use-package eglot
-;;   :hook
-;;   (python-mode . eglot-ensure))
-;; (setq eglot-auto-display-help-buffer nil)
-;; (setq eglot-put-doc-in-help-buffer t)
+(require 'origami)
+(global-origami-mode 1)
+(add-hook 'prog-mode-hook
+          (lambda ()
+            (setq-local origami-fold-style 'triple-braces)
+            (origami-mode)
+            (origami-close-all-nodes (current-buffer))))
 
-
-(use-package lsp-mode                          
+(use-package lsp-mode
   :commands lsp
   :hook
   (python-mode . lsp)
@@ -29,11 +29,8 @@
   (setq lsp-pyls-plugins-rope-completion-enabled nil)
   (setq lsp-pyls-plugins-jedi-completion-include-params nil))
 
-(use-package company-lsp
-  :config
-  (setq company-lsp-enable-snippet nil))
-
-;; Stray hooks and configs
+;; >>> Stray hooks & Configs
+;; {{{
 (defun set-no-process-query-on-exit ()
   (let ((proc (get-buffer-process (current-buffer))))
     (when (processp proc)
@@ -47,7 +44,8 @@
   (setq counsel-evil-registers-height 300))
 
 (setq python-shell-interpreter "python3")
-;; end stray hooks and configs
+;; }}}
+;; >>> end
 
 (load! "+lang.el")
 (load! "+theme.el")

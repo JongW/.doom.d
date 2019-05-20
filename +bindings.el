@@ -1,6 +1,7 @@
 ;;; ~/.doom.d/+bindings.el -*- lexical-binding: t; -*-
 
-;; Custom functions
+;; >>> Custom functions
+;; {{{
 (defun my-ivy-switch-buffer (regex-list)
   (let ((ivy-ignore-buffers regex-list))
     (ivy-switch-buffer)))
@@ -51,7 +52,10 @@
 KEY must be given in `kbd' notation."
   `(lambda () (interactive)
      (setq prefix-arg current-prefix-arg)
+
      (setq unread-command-events (listify-key-sequence (read-kbd-macro ,key)))))
+;; }}}
+;; >>> end
 
 (map!
 
@@ -200,14 +204,16 @@ KEY must be given in `kbd' notation."
      :desc "Switch to 9th workspace"  :n "9"   (λ! (+workspace/switch-to 8)))
 
    (:prefix("z" . "Extra commands")
-     :desc "Private config"           :n "p" #'doom/open-private-config
-     :desc "New window"               :n "n" #'make-frame
-     :desc "Sudo this file"           :n "s" #'doom/sudo-this-file
-     :desc "Restart and restore"      :n "r" #'doom/restart-and-restore
-     :desc "Insert snippets"          :n "s" #'yas-insert-snippet
-     :desc "Reload theme"             :n "l" #'doom/reload-theme
-     :desc "Neotree dir"              :n "e" #'neotree-dir
-     :desc "Format code"              :n "t" #'+format/buffer
+ :desc "Private config"      :n "p" #'doom/open-private-config
+ :desc "New window"          :n "n" #'make-frame
+ :desc "Sudo this file"      :n "s" #'doom/sudo-this-file
+ :desc "Restart and restore" :n "r" #'doom/restart-and-restore
+ :desc "Insert snippets"     :n "s" #'yas-insert-snippet
+ :desc "Reload theme"        :n "l" #'doom/reload-theme
+ :desc "Neotree dir"         :n "e" #'neotree-dir
+ :desc "Format code"         :n "t" #'+format/buffer
+ :desc "Marker only fold"    :n "a" #'origami-toggle-node
+
      (:after lsp
        :map lsp-mode-map
        :n "t" #'lsp-format-buffer))
